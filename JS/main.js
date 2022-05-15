@@ -4,14 +4,17 @@ import RecursiveExample from "./RecursiveExample.js";
 import { Person } from "./PrototypeExample.js";
 import CallbackExample from "./CallbackExample.js";
 
-const btnEl = document.getElementById(".button");
+// const btnEl = document.getElementById(".button");
 
+//----------------------------------------------------------------
 // TestExample();
 
+//----------------------------------------------------------------
 // console.dir(btnEl);
 // let retval = RecursiveExample(btnEl);
 // console.log(retval);
 
+//----------------------------------------------------------------
 // // prototype은 Person 인스턴스들 간에 공유되는 객체.
 // // 따라서 Person.prototype에 할당 된 모든 속성을 공유
 // let me = new Person("Baek", "Seunghak");
@@ -32,4 +35,10 @@ const btnEl = document.getElementById(".button");
 // };
 // console.log("This can now be reversed".reversed());
 
-CallbackExample();
+//----------------------------------------------------------------
+// callback 구현 없이 사용하면 undefinded 출력
+// console.log(`without callback : ${CallbackExample()}`);
+
+CallbackExample(function (data) {
+  console.log(`with callback : ${data}`);
+});
