@@ -3,6 +3,7 @@ import RecursiveExample from "./RecursiveExample.js";
 // import prototypeExample from "./PrototypeExample.js";
 import { Person } from "./PrototypeExample.js";
 import CallbackExample from "./CallbackExample.js";
+import PromiseExample from "./PromiseExample.js";
 
 // const btnEl = document.getElementById(".button");
 
@@ -39,6 +40,15 @@ import CallbackExample from "./CallbackExample.js";
 // callback 구현 없이 사용하면 undefinded 출력
 // console.log(`without callback : ${CallbackExample()}`);
 
-CallbackExample(function (data) {
-  console.log(`with callback : ${data}`);
-});
+// CallbackExample(function (data) {
+//   console.log(`with callback : ${data}`);
+// });
+
+//----------------------------------------------------------------
+PromiseExample()
+  .then(function (data) {
+    console.log(data);
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
