@@ -4,10 +4,10 @@ function checkValidity({ data, isNew }) {
     const data = arguments[0];
     data.every((data) => {
       if (
-        typeof data.text !== 'string' ||
-        typeof data.isCompleted !== 'boolean'
+        typeof data.text !== "string" ||
+        typeof data.isCompleted !== "boolean"
       ) {
-        throw new Error('Invalid Data!!!');
+        throw new Error("Invalid Data!!!");
       }
     });
   } else {
@@ -15,14 +15,14 @@ function checkValidity({ data, isNew }) {
       throw new Error('Function must be declared with "new" keyword!!!');
     }
     if (!Array.isArray(data)) {
-      throw new Error('Data type is not an Array!!!');
+      throw new Error("Data type is not an Array!!!");
     }
     data.every((data) => {
       if (
-        typeof data.text !== 'string' ||
-        typeof data.isCompleted !== 'boolean'
+        typeof data.text !== "string" ||
+        typeof data.isCompleted !== "boolean"
       ) {
-        throw new Error('Invalid Data!!!');
+        throw new Error("Invalid Data!!!");
       }
     });
   }
@@ -32,39 +32,80 @@ function TodoList(targetElm, data) {
   checkValidity({ data, isNew: new.target });
   this.state = data;
 
-  this.addTodoArea = document.createElement('div');
-  this.inputElm = document.createElement('input');
-  this.inputElm.setAttribute('type', 'text');
-  this.inputElm.setAttribute('id', 'inputElm');
-  this.submitElm = document.createElement('input');
-  this.submitElm.setAttribute('type', 'submit');
-  this.submitElm.setAttribute('id', 'submitElm');
+  this.ulElm = document.createElement("ul");
+  this.ulElm.setAttribute("list-style", "none");
+  this.ulElm.setAttribute("padding-left", "0px");
+  targetElm.appendChild(this.ulElm);
+
+  this.inputElm = document.createElement("input");
+  this.inputElm.setAttribute("type", "text");
+  this.inputElm.setAttribute("id", "inputElm");
+
+  this.submitElm = document.createElement("input");
+  this.submitElm.setAttribute("type", "submit");
+  this.submitElm.setAttribute("id", "submitElm");
+
+  this.addTodoArea = document.createElement("div");
   this.addTodoArea.appendChild(this.inputElm);
   this.addTodoArea.appendChild(this.submitElm);
 
-  const html = `
-    <ul style="list-style: none; padding-left: 0px;">
+  this.render = function () {
+    targetElm.innerHTML = `
       ${this.state
         .map(
-          ({ text, isCompleted }) =>
-            `<li style="background-color:#6667AB; border:1px solid white">
-        ${isCompleted ? `<s>${text}</s>` : text}
-        <input type="checkbox" style="position:absolute; right:10px;"></li>`
+          ({ text, isCompleted }, index) =>
+            `<li class="todoItem" id="li_${index}" style="background-color:#6667AB; border:1px solid white;">
+              ${isCompleted ? `<s>${text}</s>` : text}
+              <input class="delBtn" id="input_${index}" type="checkbox" style="position:absolute; right:10px;">
+            </li>`
         )
-        .join('')}
-    </ul>`;
-
-  this.render = function () {
-    targetElm.innerHTML = html;
+        .join("")}
+    `;
     targetElm.appendChild(this.addTodoArea);
+
+    //   document.getElementById("submitElm").addEventListener("click", () => {
+    //     const inputData = [
+    //       ...this.state,
+    //       {
+    //         text: `${document.getElementById("inputElm").value}`,
+    //         isCompleted: false,
+    //       },
+    //     ];
+
+    //     this.setState(inputData);
+    //   });
   };
   this.render();
 
-  document.getElementById('submitElm').addEventListener('click', () => {
-    const inputData = document.getElementById('inputElm').value;
-    console.log(inputData);
-
-    // this.setState(inputTodo.value);
+  // for (let i = 0; i < this.state.length; i++) {
+  //   document.getElementById(`li_${i}`).addEventListener("click", (e) => {
+  //     // e.target.isCompleted = !e.target.isCompleted;
+  //     // console.log(e.target.isCompleted);
+  //     console.log(e);
+  //   });
+  // }
+  targetElm.addEventListener("click", (e) => {
+    if (e.target.className === "delBtn") {
+      console.log("input");
+    } else if (e.target.className === "todoItem") {
+      console.log("todoItem");
+    } else if (e.target.id === "submitElm") {
+      const inputElm = document.getElementById("inputElm");
+      const inputText = inputElm.value;
+      // 정규표현식으로 공백도 포함 안 되게 변경
+      if (inputText !== "") {
+        console.log("submit");
+        const inputData = [
+          ...this.state,
+          {
+            text: `${inputText}`,
+            isCompleted: false,
+          },
+        ];
+        this.setState(inputData);
+        inputElm.value = "";
+      }
+    }
   });
 
   this.setState = function (nextData) {
