@@ -40,12 +40,15 @@ function TodoList(targetElm, data) {
   this.inputElm = document.createElement("input");
   this.inputElm.setAttribute("type", "text");
   this.inputElm.setAttribute("id", "inputElm");
+  this.inputElm.setAttribute("placeholder", "새 일정 추가");
 
   this.submitElm = document.createElement("input");
   this.submitElm.setAttribute("type", "submit");
   this.submitElm.setAttribute("id", "submitElm");
+  this.submitElm.setAttribute("value", "추가");
 
   this.addTodoArea = document.createElement("div");
+  this.addTodoArea.setAttribute("id", "addTodoArea");
   this.addTodoArea.appendChild(this.inputElm);
   this.addTodoArea.appendChild(this.submitElm);
 
@@ -54,45 +57,31 @@ function TodoList(targetElm, data) {
       ${this.state
         .map(
           ({ text, isCompleted }, index) =>
-            `<li class="todoItem" id="li_${index}" style="background-color:#6667AB; border:1px solid white;">
+            `<li class="todoItem" todo_idx="${index}">
               ${isCompleted ? `<s>${text}</s>` : text}
-              <input class="delBtn" id="input_${index}" type="checkbox" style="position:absolute; right:10px;">
+              <input class="delBtn" btn_idx="${index}" type="checkbox">
             </li>`
         )
         .join("")}
     `;
     targetElm.appendChild(this.addTodoArea);
-
-    //   document.getElementById("submitElm").addEventListener("click", () => {
-    //     const inputData = [
-    //       ...this.state,
-    //       {
-    //         text: `${document.getElementById("inputElm").value}`,
-    //         isCompleted: false,
-    //       },
-    //     ];
-
-    //     this.setState(inputData);
-    //   });
   };
   this.render();
 
-  // for (let i = 0; i < this.state.length; i++) {
-  //   document.getElementById(`li_${i}`).addEventListener("click", (e) => {
-  //     // e.target.isCompleted = !e.target.isCompleted;
-  //     // console.log(e.target.isCompleted);
-  //     console.log(e);
-  //   });
-  // }
   targetElm.addEventListener("click", (e) => {
-    if (e.target.className === "delBtn") {
-      console.log("input");
-    } else if (e.target.className === "todoItem") {
-      console.log("todoItem");
+    if (e.target.className === "todoItem") {
+      const changeData = [...this.state];
+      changeData[e.target.attributes.todo_idx.nodeValue].isCompleted =
+        !changeData[e.target.attributes.todo_idx.nodeValue].isCompleted;
+      this.setState(changeData);
+    } else if (e.target.className === "delBtn") {
+      const changeData = [...this.state];
+      changeData.splice(e.target.attributes.btn_idx.nodeValue, 1);
+      this.setState(changeData);
     } else if (e.target.id === "submitElm") {
       const inputElm = document.getElementById("inputElm");
       const inputText = inputElm.value;
-      // 정규표현식으로 공백도 포함 안 되게 변경
+      // 정규표현식써서 공백인 경우에도 추가 안 되게 하기
       if (inputText !== "") {
         console.log("submit");
         const inputData = [
@@ -114,20 +103,3 @@ function TodoList(targetElm, data) {
     this.render();
   };
 }
-
-// setTimeout(() => {
-//   todoList.setState([
-//     {
-//       text: 'JS 공부하기',
-//       isCompleted: true,
-//     },
-//     {
-//       text: 'JS 복습하기',
-//       isCompleted: true,
-//     },
-//     {
-//       text: 'PR 올리기',
-//       isCompleted: false,
-//     },
-//   ]);
-// }, 1000);

@@ -1,0 +1,27 @@
+.todoItem {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  border-bottom: 1px solid #efefef;
+  padding: 0px 10px 10px;
+  margin-top: 10px;
+}
+
+.delBtn {
+  position: absolute;
+  right: 10px;
+}
+
+#addTodoArea {
+  display: flex;
+  position: absolute;
+  margin: 10px 10px;
+}
+
+#inputElm ::placeholder {
+  /*  */
+}
+
+#submitElm {
+  margin-left: 5px;
+}
