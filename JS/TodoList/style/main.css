@@ -1,3 +1,7 @@
+#todo-list .todoUl {
+  list-style: none;
+}
+
 #todo-list .todoItem {
   display: flex;
   align-items: center;
@@ -24,4 +28,10 @@
 
 #add-todo #submitElm {
   margin-left: 5px;
+}
+
+#todo-count {
+  position: absolute;
+  right: 10px;
+  margin-top: 10px;
 }

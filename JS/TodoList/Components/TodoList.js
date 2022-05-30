@@ -1,16 +1,11 @@
 import checkValidity from "../Utility/checkValidity.js";
 
-export default function TodoList($target, data, deleteTodo) {
+export default function TodoList($target, data, changeCompleted, deleteTodo) {
   checkValidity({ data, isNew: new.target });
   this.state = data;
 
-  this.ulElm = document.createElement("ul");
-  this.ulElm.setAttribute("list-style", "none");
-  this.ulElm.setAttribute("padding-left", "0px");
-  $target.appendChild(this.ulElm);
-
   this.render = function () {
-    $target.innerHTML = `
+    $target.innerHTML = `<ul id="todoUl">
       ${this.state
         .map(
           ({ text, isCompleted }, index) =>
@@ -20,6 +15,7 @@ export default function TodoList($target, data, deleteTodo) {
             </li>`
         )
         .join("")}
+        </ul>
     `;
   };
   this.render();
@@ -29,7 +25,7 @@ export default function TodoList($target, data, deleteTodo) {
       const changeData = [...this.state];
       changeData[e.target.attributes.todo_idx.nodeValue].isCompleted =
         !changeData[e.target.attributes.todo_idx.nodeValue].isCompleted;
-      this.setState(changeData);
+      changeCompleted(changeData);
     } else if (e.target.className === "delBtn") {
       const changeData = [...this.state];
       changeData.splice(e.target.attributes.btn_idx.nodeValue, 1);
@@ -38,7 +34,6 @@ export default function TodoList($target, data, deleteTodo) {
   });
 
   this.setState = function (nextData) {
-    checkValidity(nextData);
     this.state = nextData;
     this.render();
   };

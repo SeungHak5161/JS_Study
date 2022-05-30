@@ -1,6 +1,6 @@
-export default function TodoInput(addTodo) {
+export default function TodoInput($target, addTodo) {
   this.render = function () {
-    document.getElementById("add-todo").innerHTML = `
+    $target.innerHTML = `
         <input type="text" id="inputElm" placeholder="새 일정 추가"></input>
         <input type="submit" id="submitElm" value="추가"></input>
       `;

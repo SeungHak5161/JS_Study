@@ -1,6 +1,6 @@
 import App from "./Components/App.js";
 
-const $target = document.getElementById("todo-list");
+const $target = document.getElementById("App");
 
 const data = [
   {
