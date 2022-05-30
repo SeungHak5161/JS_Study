@@ -1,4 +1,4 @@
-.todoItem {
+#todo-list .todoItem {
   display: flex;
   align-items: center;
   list-style-type: none;
@@ -7,21 +7,21 @@
   margin-top: 10px;
 }
 
-.delBtn {
+#todo-list .todoItem .delBtn {
   position: absolute;
   right: 10px;
 }
 
-#addTodoArea {
+#add-todo {
   display: flex;
   position: absolute;
   margin: 10px 10px;
 }
 
-#inputElm ::placeholder {
+#add-todo #inputElm ::placeholder {
   /*  */
 }
 
-#submitElm {
+#add-todo #submitElm {
   margin-left: 5px;
 }

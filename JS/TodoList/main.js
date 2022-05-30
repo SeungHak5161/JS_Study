@@ -1,3 +1,7 @@
+import App from "./Components/App.js";
+
+const $target = document.getElementById("todo-list");
+
 const data = [
   {
     text: "JS 공부하기",
@@ -9,5 +13,4 @@ const data = [
   },
 ];
 
-const targetElm = document.getElementById("todo-list");
-const todoList = new TodoList(targetElm, data);
+const app = new App({ $target, data });
