@@ -3,12 +3,9 @@
 }
 
 #todo-list .todoItem {
-  display: flex;
-  align-items: center;
   list-style-type: none;
   border-bottom: 1px solid #efefef;
-  padding: 0px 10px 10px;
-  margin-top: 10px;
+  padding: 10px 10px 10px;
 }
 
 #todo-list .todoItem .delBtn {
