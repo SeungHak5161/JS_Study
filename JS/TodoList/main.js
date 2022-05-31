@@ -1,4 +1,4 @@
-import App from "./Components/App.js";
+import App from "./Components/index.js";
 
 const $target = document.getElementById("App");
 
