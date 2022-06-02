@@ -4,10 +4,10 @@ export default function checkValidity({ data, isNew }) {
     const data = arguments[0];
     data.every((data) => {
       if (
-        typeof data.text !== "string" ||
-        typeof data.isCompleted !== "boolean"
+        typeof data.text !== 'string' ||
+        typeof data.isCompleted !== 'boolean'
       ) {
-        throw new Error("Invalid Data!!!");
+        throw new Error('Invalid Data!!!');
       }
     });
   } else {
@@ -15,14 +15,14 @@ export default function checkValidity({ data, isNew }) {
       throw new Error('Function must be declared with "new" keyword!!!');
     }
     if (!Array.isArray(data)) {
-      throw new Error("Data type is not an Array!!!");
+      throw new Error('Data type is not an Array!!!');
     }
     data.every((data) => {
       if (
-        typeof data.text !== "string" ||
-        typeof data.isCompleted !== "boolean"
+        typeof data.text !== 'string' ||
+        typeof data.isCompleted !== 'boolean'
       ) {
-        throw new Error("Invalid Data!!!");
+        throw new Error('Invalid Data!!!');
       }
     });
   }
