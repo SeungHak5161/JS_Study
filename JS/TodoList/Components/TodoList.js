@@ -12,35 +12,39 @@ export default function TodoList(
       ${this.state
         .map(
           ({ text, isCompleted }, index) =>
-            `<li class="todoItem" todo_idx="${index}">
+            // "data-"(data 속성 이름) 붙이면 나중에 .dataset으로 값을 가져올 수 있음(camelCase로도 가능하다고 함)
+            `<li class="todoItem" data-idx="${index}">
               ${isCompleted ? `<s>${text}</s>` : text}
-              <input class="delBtn" btn_idx="${index}" type="checkbox">
+              <input class="delBtn" data-idx="${index}" type="checkbox">
             </li>`
         )
-        .join('')}
+        .join("")}
         </ul>
     `;
   };
   this.render();
 
-  $target.addEventListener('click', (e) => {
-    // e.target.tagName으로 구현해도 됨
-    if (e.target.className === 'todoItem') {
+  $target.addEventListener("click", (e) => {
+    const className = e.target.className;
+    if (className === "todoItem") {
+      // DOM 노드를 직접 따라하는 것 보다 $li = e.target.closest('li') 사용하는게 깔끔
+      const $li = e.target.closest("li");
+      // .dataset으로 리턴 받은 값은 string 형이므로 parseInt 해줘야 원하는 결과 나옴
+      const idx = parseInt($li.dataset.idx);
       const changeData = [...this.state];
-      // DOM 노드를 직접 따라가기보다 $li = e.target.closest('li') 사용하는게 편함
-      // $li.dataset -> dataset을 가져올 수 있다고 함 알아보기(parseInt 해줘야함)
-      changeData[e.target.attributes.todo_idx.nodeValue].isCompleted =
-        !changeData[e.target.attributes.todo_idx.nodeValue].isCompleted;
+      changeData[idx].isCompleted = !changeData[idx].isCompleted;
       changeCompleted(changeData);
-    } else if (e.target.className === 'delBtn') {
+    } else if (className === "delBtn") {
+      const $input = e.target.closest("input");
+      const idx = parseInt($input.dataset.idx);
       const changeData = [...this.state];
-      changeData.splice(e.target.attributes.btn_idx.nodeValue, 1);
+      changeData.splice(idx, 1);
       deleteTodo(changeData);
     }
   });
 
-  const $removeAll = document.getElementById('remove-all');
-  $removeAll.addEventListener('click', () => {
+  const $removeAll = document.getElementById("remove-all");
+  $removeAll.addEventListener("click", () => {
     dispatchEvent(RemoveAll);
   });
 
