@@ -16,6 +16,7 @@ export default function TodoInput($target, addTodo) {
     const inputText = $input.value;
     console.log(inputText);
 
+    // inputText.trim() -> 공백 제거 (대체가능)
     if (
       inputText.length !== 0 &&
       inputText.length !== inputText.split(" ").length - 1
