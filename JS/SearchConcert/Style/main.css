@@ -1,0 +1,23 @@
+#app {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#search-history {
+  display: flex;
+}
+#search-history::before {
+  content: '최근 검색 :';
+  margin-top: 7px;
+}
+
+.history-span {
+  padding: 3px;
+  margin: 3px 5px;
+  border: 1px solid #efefef;
+}
+
+/* #search-history :first-child {
+  
+} */

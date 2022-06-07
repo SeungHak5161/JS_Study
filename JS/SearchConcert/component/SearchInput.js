@@ -1,14 +1,12 @@
-export default function SearchInput({ $target, fetchData }) {
-  let data = [];
+export default function SearchInput({ $target, searchData }) {
   let timer;
-  $target.addEventListener("keyup", (e) => {
+  $target.addEventListener('keyup', (e) => {
     if (timer) {
       clearTimeout(timer);
     }
     timer = setTimeout(function () {
-      if (e.target.value.trim() !== "") {
-        console.log("검색 시작");
-        fetchData(e.target.value);
+      if (e.target.value.trim() !== '') {
+        searchData(e.target.value);
       }
     }, 1000);
   });
