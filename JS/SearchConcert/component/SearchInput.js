@@ -1,9 +1,8 @@
-export default function SearchInput({ $target, returnResult }) {
-  $target.addEventListener('keyup', (e) => {
-    fetch(`https://api.idiots.band/api/search?keyword=${e.target.value}`)
-      .then((response) => response.json())
-      .then((data) => {
-        returnResult(data);
-      });
+export default function SearchInput({ $target, fetchData }) {
+  let data = [];
+  $target.addEventListener("keyup", (e) => {
+    if (e.target.value.trim() !== "") {
+      fetchData(e.target.value);
+    }
   });
 }
