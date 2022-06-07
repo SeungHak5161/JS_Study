@@ -16,7 +16,7 @@ export default function App() {
     this.setState({ nextData: data, inputValue: inputValue });
   };
 
-  const clickHistory = async (clickedHistory) => {
+  const searchWithoutHistory = async (clickedHistory) => {
     const data = await fetchData(clickedHistory);
     searchResult.setState(data);
   };
@@ -33,10 +33,11 @@ export default function App() {
   const searchResult = new SearchResult({
     $target: $SearchResult,
     Data: this.state,
+    searchWithoutHistory: searchWithoutHistory,
   });
 
   const searchHistory = new SearchHistory({
     $target: $SearchHistory,
-    clickHistory: clickHistory,
+    searchWithoutHistory: searchWithoutHistory,
   });
 }

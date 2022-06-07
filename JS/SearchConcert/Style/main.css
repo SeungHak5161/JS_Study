@@ -18,6 +18,21 @@
   border: 1px solid #efefef;
 }
 
-/* #search-history :first-child {
-  
-} */
+.result-div {
+  width: 90vw;
+  display: block;
+  padding: 4px;
+  margin: 5px 0px;
+  border: 1px solid #efefef;
+}
+
+.result-img {
+  width: 50vw;
+}
+
+.result-span {
+  display: table;
+  padding: 3px;
+  margin: 3px 5px;
+  border: 1px solid #efefef;
+}

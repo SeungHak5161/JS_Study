@@ -1,6 +1,6 @@
 import { setData, getData } from '../Utility/LocalHistory.js';
 
-export default function SearchHistory({ $target, clickHistory }) {
+export default function SearchHistory({ $target, searchWithoutHistory }) {
   this.state = getData();
 
   this.setState = function (inputValue) {
@@ -22,7 +22,6 @@ export default function SearchHistory({ $target, clickHistory }) {
   };
 
   this.render = function () {
-    console.log(this.state);
     $target.innerHTML = `
         ${this.state
           .map(
@@ -34,7 +33,7 @@ export default function SearchHistory({ $target, clickHistory }) {
 
   $target.addEventListener('click', (e) => {
     const $span = e.target.closest('span');
-    clickHistory($span.innerText);
+    searchWithoutHistory($span.innerText);
   });
 
   this.render();

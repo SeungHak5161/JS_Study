@@ -1,12 +1,15 @@
-export default function SearchResult({ $target, Data }) {
+export default function SearchResult({ $target, Data, searchWithoutHistory }) {
   this.state = Data;
 
   this.render = function () {
     $target.innerHTML = `${this.state
       .map(
         (d) =>
-          `<div style="display: inline-block; width: 33%">
-              <img src="${d.poster}" style="object-fit: cover; width: 100%;">
+          `<div class="result-div">
+              <img class="result-img" src="${d.poster}">
+              ${d.musicians
+                .map((e) => `<span class="result-span">${e}</span>`)
+                .join('')}
             </div>`
       )
       .join('')}`;
@@ -14,9 +17,13 @@ export default function SearchResult({ $target, Data }) {
 
   this.setState = function (nextData) {
     this.state = nextData;
-    console.log(this.state);
     this.render();
   };
+
+  $target.addEventListener('click', (e) => {
+    const $span = e.target.closest('span');
+    searchWithoutHistory($span.innerText);
+  });
 
   this.render();
 }
