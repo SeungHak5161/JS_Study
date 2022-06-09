@@ -35,13 +35,14 @@ export default function App() {
     this.setState([]);
   });
 
-  const todoList = new TodoList(
-    $todoList,
-    getData(),
-    this.changeCompleted,
-    this.deleteTodo,
-    RemoveAll
-  );
-  const todoInput = new TodoInput($addTodo, this.addTodo);
-  const todoCount = new TodoCount($todoCount, getData());
+  const todoList = new TodoList({
+    $target: $todoList,
+    setState: this.setState,
+    removeEvent: RemoveAll,
+  });
+  const todoInput = new TodoInput({
+    $target: $addTodo,
+    setState: this.setState,
+  });
+  const todoCount = new TodoCount({ $target: $todoCount });
 }

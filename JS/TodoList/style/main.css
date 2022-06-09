@@ -18,10 +18,6 @@
   margin: 10px 10px;
 }
 
-#add-todo #inputElm ::placeholder {
-  /*  */
-}
-
 #add-todo #submitElm {
   margin-left: 5px;
 }

@@ -1,11 +1,11 @@
 const localData = window.localStorage;
 
 export const setData = (newData) => {
-  localData.setItem('todo', JSON.stringify(newData));
+  localData.setItem("todo", JSON.stringify(newData));
 };
 
 export const getData = (delData) => {
   const initialData = [];
-  const TodoData = localData.getItem('todo');
-  return TodoData ? JSON.parse(TodoData) : initialData;
+  const todoData = localData.getItem("todo");
+  return todoData ? JSON.parse(todoData) : initialData;
 };

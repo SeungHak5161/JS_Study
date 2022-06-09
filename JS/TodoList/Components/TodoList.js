@@ -1,11 +1,7 @@
-export default function TodoList(
-  $target,
-  data,
-  changeCompleted,
-  deleteTodo,
-  RemoveAll
-) {
-  this.state = data;
+import { getData } from "./data.js";
+
+export default function TodoList({ $target, setState, removeEvent }) {
+  this.state = getData();
 
   this.render = function () {
     $target.innerHTML = `<ul id="todoUl">
@@ -33,19 +29,19 @@ export default function TodoList(
       const idx = parseInt($li.dataset.idx);
       const changeData = [...this.state];
       changeData[idx].isCompleted = !changeData[idx].isCompleted;
-      changeCompleted(changeData);
+      setState(changeData);
     } else if (className === "delBtn") {
       const $input = e.target.closest("input");
       const idx = parseInt($input.dataset.idx);
       const changeData = [...this.state];
       changeData.splice(idx, 1);
-      deleteTodo(changeData);
+      setState(changeData);
     }
   });
 
   const $removeAll = document.getElementById("remove-all");
   $removeAll.addEventListener("click", () => {
-    dispatchEvent(RemoveAll);
+    dispatchEvent(removeEvent);
   });
 
   this.setState = function (nextData) {

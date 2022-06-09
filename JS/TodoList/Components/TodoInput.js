@@ -1,4 +1,6 @@
-export default function TodoInput($target, addTodo) {
+import { getData } from "./data.js";
+
+export default function TodoInput({ $target, setState }) {
   this.render = function () {
     $target.innerHTML = `
       <form id="formElm">
@@ -14,19 +16,15 @@ export default function TodoInput($target, addTodo) {
     e.preventDefault();
     const $input = document.getElementById("inputElm");
     const inputText = $input.value;
-    console.log(inputText);
 
     // inputText.trim() -> 공백 제거 (대체가능)
-    if (
-      inputText.length !== 0 &&
-      inputText.length !== inputText.split(" ").length - 1
-    ) {
+    if (inputText.trim().length > 0) {
       const inputData = {
         text: `${inputText}`,
         isCompleted: false,
       };
 
-      addTodo(inputData);
+      setState([...getData(), inputData]);
       $input.value = "";
       $input.focus();
     }
