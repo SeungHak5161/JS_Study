@@ -1,7 +1,13 @@
-import { getData } from "./data.js";
-
-export default function TodoList({ $target, setState, removeEvent }) {
-  this.state = getData();
+export default function TodoList({
+  $target,
+  setState,
+  removeEvent,
+  initialState,
+}) {
+  if (!new.target) {
+    throw new Error('Function must be declared with "new" keyword!!!');
+  }
+  this.state = initialState;
 
   this.render = function () {
     $target.innerHTML = `<ul id="todoUl">

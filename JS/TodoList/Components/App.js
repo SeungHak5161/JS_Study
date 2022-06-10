@@ -4,25 +4,18 @@ import TodoInput from "./TodoInput.js";
 import { setData, getData } from "./data.js";
 import checkValidity from "../Utility/checkValidity.js";
 
-// storage에 key설정 알아보기 -> 이유 못들었음 다시 듣기
 export default function App() {
+  const localData = window.localStorage;
+  this.state = getData({ localData });
+
   this.setState = (nextData) => {
     checkValidity(nextData);
-    setData(nextData);
-    todoList.setState(nextData);
-    todoCount.setState(nextData);
-  };
+    setData({ localData, nextData });
+    this.state = nextData;
 
-  this.changeCompleted = (nextData) => {
-    this.setState(nextData);
-  };
-
-  this.addTodo = (newTodo) => {
-    this.setState([...getData(), newTodo]);
-  };
-
-  this.deleteTodo = (nextData) => {
-    this.setState(nextData);
+    todoList.setState(this.state);
+    todoCount.setState(this.state);
+    todoInput.setState(this.state);
   };
 
   const $todoList = document.getElementById("todo-list");
@@ -39,10 +32,15 @@ export default function App() {
     $target: $todoList,
     setState: this.setState,
     removeEvent: RemoveAll,
+    initialState: this.state,
   });
   const todoInput = new TodoInput({
     $target: $addTodo,
     setState: this.setState,
+    initialState: this.state,
   });
-  const todoCount = new TodoCount({ $target: $todoCount });
+  const todoCount = new TodoCount({
+    $target: $todoCount,
+    initialState: this.state,
+  });
 }

@@ -1,7 +1,5 @@
-import { getData } from "./data.js";
-
-export default function TodoCount({ $target }) {
-  this.state = getData();
+export default function TodoCount({ $target, initialState }) {
+  this.state = initialState;
   this.setState = function (nextData) {
     this.state = nextData;
     this.render();

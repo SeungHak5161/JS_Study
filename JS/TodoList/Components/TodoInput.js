@@ -1,6 +1,4 @@
-import { getData } from "./data.js";
-
-export default function TodoInput({ $target, setState }) {
+export default function TodoInput({ $target, setState, initialState }) {
   this.render = function () {
     $target.innerHTML = `
       <form id="formElm">
@@ -10,6 +8,11 @@ export default function TodoInput({ $target, setState }) {
       `;
   };
   this.render();
+
+  this.state = initialState;
+  this.setState = function (nextData) {
+    this.state = nextData;
+  };
 
   // 엔터를 사용해서 이벤트를 발생시키려면, input태그를 form태그로 감싸고 "submit" 이벤트를 사용해야 함
   document.getElementById("formElm").addEventListener("submit", (e) => {
@@ -24,7 +27,7 @@ export default function TodoInput({ $target, setState }) {
         isCompleted: false,
       };
 
-      setState([...getData(), inputData]);
+      setState([...this.state, inputData]);
       $input.value = "";
       $input.focus();
     }
