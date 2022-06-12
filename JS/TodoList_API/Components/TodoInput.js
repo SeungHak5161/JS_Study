@@ -1,4 +1,7 @@
-export default function TodoInput({ $target, setState, initialState }) {
+export default function TodoInput(params) {
+  const $target = params.$target;
+  const setState = params.setState;
+  const initialState = params.initialState;
   this.render = function () {
     $target.innerHTML = `
       <form id="formElm">

@@ -1,0 +1,35 @@
+#todo-list .todoUl {
+  list-style: none;
+}
+
+#todo-list .todoItem {
+  border-bottom: 1px solid #efefef;
+  padding: 10px 10px 10px;
+}
+
+#todo-list .todoItem .delBtn {
+  position: absolute;
+  right: 10px;
+}
+
+#add-todo {
+  display: flex;
+  position: absolute;
+  margin: 10px 10px;
+}
+
+#add-todo #submitElm {
+  margin-left: 5px;
+}
+
+#todo-count {
+  position: absolute;
+  right: 100px;
+  margin-top: 10px;
+}
+
+#remove-all {
+  position: absolute;
+  right: 10px;
+  margin-top: 10px;
+}
