@@ -2,6 +2,7 @@ export default function TodoList(params) {
   const $target = params.$target;
   const removeEvent = params.removeEvent;
   const initialState = params.initialState;
+  const username = params.username;
   const onClick = params.onClick;
   const onRemove = params.onRemove;
 
@@ -11,7 +12,7 @@ export default function TodoList(params) {
   this.state = initialState;
 
   this.render = function () {
-    console.log("re-rendered");
+    // console.log("re-rendered");
     $target.innerHTML = `<ul id="todoUl">
       ${this.state
         .map(
@@ -38,12 +39,12 @@ export default function TodoList(params) {
       const $li = e.target.closest("li");
       const idx = parseInt($li.dataset.idx);
       const id = this.state[idx]._id;
-      onClick(id);
+      onClick(username, id);
     } else if (className === "delBtn") {
       const $input = e.target.closest("input");
       const idx = parseInt($input.dataset.idx);
       const id = this.state[idx]._id;
-      onRemove(id);
+      onRemove(username, id);
     }
   });
 

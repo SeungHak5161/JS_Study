@@ -1,6 +1,7 @@
 export default function TodoInput(params) {
   const $target = params.$target;
   const initialState = params.initialState;
+  const username = params.username;
   const onAdd = params.onAdd;
 
   this.render = function () {
@@ -13,10 +14,10 @@ export default function TodoInput(params) {
   };
   this.render();
 
-  this.state = initialState;
-  this.setState = function (nextData) {
-    this.state = nextData;
-  };
+  // this.state = initialState;
+  // this.setState = function (nextData) {
+  //   this.state = nextData;
+  // };
 
   document.getElementById("formElm").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ export default function TodoInput(params) {
 
     if (inputText.trim().length > 0) {
       const inputData = inputText;
-      onAdd(inputData);
+      onAdd(username, inputData);
 
       $input.value = "";
       $input.focus();

@@ -2,25 +2,13 @@ import TodoList from "./TodoList.js";
 import TodoCount from "./TodoCount.js";
 import TodoInput from "./TodoInput.js";
 import checkValidity from "../Apis/checkValidity.js";
+import { fetchData } from "../Apis/Apis.js";
+// , onAdd, onClick, onRemove }
 
 export default async function App() {
   const username = "test123";
 
-  async function fetchData() {
-    const res = await fetch(`https://todo-api.roto.codes/test123`);
-    return await res.json();
-  }
-
-  const data = await fetchData();
-
-  // this.setState = (nextData) => {
-  //   // checkValidity(nextData);
-  //   this.state = nextData;
-
-  //   todoList.setState(this.state);
-  //   todoCount.setState(this.state);
-  //   todoInput.setState(this.state);
-  // };
+  const data = await fetchData({ username, method: "GET" });
 
   const $todoList = document.getElementById("todo-list");
   const $addTodo = document.getElementById("add-todo");
@@ -30,11 +18,11 @@ export default async function App() {
 
   window.addEventListener("removeAll", async () => {
     data.forEach(async (e) => {
-      await fetch(`https://todo-api.roto.codes/test123/${e._id}`, {
+      await fetch(`https://todo-api.roto.codes/${username}/${e._id}`, {
         method: "DELETE",
       });
     });
-    const removedAllData = await fetchData();
+    const removedAllData = await fetchData(username);
     todoList.setState(removedAllData);
   });
 
@@ -42,28 +30,28 @@ export default async function App() {
     $target: $todoList,
     removeEvent: RemoveAll,
     initialState: data,
-
-    onClick: async function (id) {
-      await fetch(`https://todo-api.roto.codes/test123/${id}/toggle`, {
+    username: username,
+    onClick: async function (username, id) {
+      await fetch(`https://todo-api.roto.codes/${username}/${id}/toggle`, {
         method: "PUT",
       });
-      const updatedData = await fetchData();
+      const updatedData = await fetchData(username);
       todoList.setState(updatedData);
     },
-
-    onRemove: async function (id) {
-      await fetch(`https://todo-api.roto.codes/test123/${id}`, {
+    onRemove: async function (username, id) {
+      await fetch(`https://todo-api.roto.codes/${username}/${id}`, {
         method: "DELETE",
       });
-      const updatedData = await fetchData();
+      const updatedData = await fetchData(username);
       todoList.setState(updatedData);
     },
   });
   const todoInput = new TodoInput({
     $target: $addTodo,
     initialState: data,
-    onAdd: async function (inputData) {
-      await fetch(`https://todo-api.roto.codes/test123`, {
+    username: username,
+    onAdd: async function (username, inputData) {
+      await fetch(`https://todo-api.roto.codes/${username}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,12 +60,13 @@ export default async function App() {
           content: `${inputData}`,
         }),
       });
-      const updatedData = await fetchData();
+      const updatedData = await fetchData(username);
       todoList.setState(updatedData);
     },
   });
   const todoCount = new TodoCount({
     $target: $todoCount,
     initialState: data,
+    username: username,
   });
 }
