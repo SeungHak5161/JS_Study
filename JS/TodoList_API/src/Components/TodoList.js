@@ -12,7 +12,6 @@ export default function TodoList(params) {
   this.state = initialState;
 
   this.render = function () {
-    // console.log("re-rendered");
     $target.innerHTML = `<ul id="todoUl">
       ${this.state
         .map(

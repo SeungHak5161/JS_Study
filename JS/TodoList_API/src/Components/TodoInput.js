@@ -14,11 +14,6 @@ export default function TodoInput(params) {
   };
   this.render();
 
-  // this.state = initialState;
-  // this.setState = function (nextData) {
-  //   this.state = nextData;
-  // };
-
   document.getElementById("formElm").addEventListener("submit", (e) => {
     e.preventDefault();
     const $input = document.getElementById("inputElm");
