@@ -1,22 +1,40 @@
 import TodoList from "./TodoList.js";
 import TodoCount from "./TodoCount.js";
 import TodoInput from "./TodoInput.js";
-import { setData, getData } from "./data.js";
+// import { setData, getData } from "./data.js";
 import checkValidity from "../Utility/checkValidity.js";
 
-export default function App() {
-  const localData = window.localStorage;
-  this.state = getData({ localData });
+export default async function App() {
+  // const localData = window.localStorage;
+  // this.state = getData({ localData });
 
-  this.setState = (nextData) => {
-    checkValidity(nextData);
-    setData({ localData, nextData });
-    this.state = nextData;
+  const username = "test123";
 
-    todoList.setState(this.state);
-    todoCount.setState(this.state);
-    todoInput.setState(this.state);
-  };
+  async function fetchData() {
+    const res = await fetch(`https://todo-api.roto.codes/test123`);
+    // console.log(res);
+    return await res.json();
+  }
+
+  const data = await fetchData();
+  // this.initState = async () => {
+  //   this.state = await fetchData();
+  // };
+  // // console.log(data);
+  // this.state = [
+  //   { content: "추가", isCompleted: false, _id: "62a58952ccbcff0556e9f5d5" },
+  // ];
+  // this.state = [];
+
+  // this.setState = (nextData) => {
+  //   // checkValidity(nextData);
+  //   // setData({ localData, nextData });
+  //   this.state = nextData;
+
+  //   todoList.setState(this.state);
+  //   todoCount.setState(this.state);
+  //   todoInput.setState(this.state);
+  // };
 
   const $todoList = document.getElementById("todo-list");
   const $addTodo = document.getElementById("add-todo");
@@ -24,41 +42,59 @@ export default function App() {
 
   const RemoveAll = new CustomEvent("removeAll");
 
-  window.addEventListener("removeAll", () => {
-    this.setState([]);
+  window.addEventListener("removeAll", async () => {
+    data.forEach(async (e) => {
+      await fetch(`https://todo-api.roto.codes/test123/${e._id}`, {
+        method: "DELETE",
+      });
+    });
+    const removedAllData = await fetchData();
+    todoList.setState(removedAllData);
+    // console.log("removeAll event");
   });
 
   const todoList = new TodoList({
     $target: $todoList,
-    setState: this.setState,
+    // setState: this.setState,
     removeEvent: RemoveAll,
-    initialState: this.state,
+    initialState: data,
+
     onClick: async function (id) {
-      await fetch(`https://todo-api.roto.codes/${username}/${id}/toggle`, {
+      await fetch(`https://todo-api.roto.codes/test123/${id}/toggle`, {
         method: "PUT",
       });
-
-      // 데이터 추가 후 서버에서 목록 다시 불러서 다시 그리기
       const updatedData = await fetchData();
       todoList.setState(updatedData);
     },
+
     onRemove: async function (id) {
-      await fetch(`https://todo-api.roto.codes/${username}/${id}`, {
+      await fetch(`https://todo-api.roto.codes/test123/${id}`, {
         method: "DELETE",
       });
-
-      // 데이터 추가 후 서버에서 목록 다시 불러서 다시 그리기
       const updatedData = await fetchData();
       todoList.setState(updatedData);
     },
   });
   const todoInput = new TodoInput({
     $target: $addTodo,
-    setState: this.setState,
-    initialState: this.state,
+    // setState: this.setState,
+    initialState: data,
+    onAdd: async function (inputData) {
+      await fetch(`https://todo-api.roto.codes/test123`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: `${inputData}`,
+        }),
+      });
+      const updatedData = await fetchData();
+      todoList.setState(updatedData);
+    },
   });
   const todoCount = new TodoCount({
     $target: $todoCount,
-    initialState: this.state,
+    initialState: data,
   });
 }

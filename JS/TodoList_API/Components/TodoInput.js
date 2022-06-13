@@ -1,7 +1,9 @@
 export default function TodoInput(params) {
   const $target = params.$target;
-  const setState = params.setState;
+  // const setState = params.setState;
   const initialState = params.initialState;
+  const onAdd = params.onAdd;
+
   this.render = function () {
     $target.innerHTML = `
       <form id="formElm">
@@ -24,12 +26,15 @@ export default function TodoInput(params) {
     const inputText = $input.value;
 
     if (inputText.trim().length > 0) {
-      const inputData = {
-        text: `${inputText}`,
-        isCompleted: false,
-      };
+      const inputData = inputText;
+      // {
+      //   content: `${inputText}`,
+      //   isCompleted: false,
+      // };
 
-      setState([...this.state, inputData]);
+      // setState([...this.state, inputData]);
+      onAdd(inputData);
+
       $input.value = "";
       $input.focus();
     }

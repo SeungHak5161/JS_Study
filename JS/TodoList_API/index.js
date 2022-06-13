@@ -1,3 +1,3 @@
-import App from './Components/App.js';
+import App from "./Components/App.js";
 
-const app = new App();
+const app = await App();
