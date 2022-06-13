@@ -1,6 +1,5 @@
 export default function TodoList(params) {
   const $target = params.$target;
-  // const setState = params.setState;
   const removeEvent = params.removeEvent;
   const initialState = params.initialState;
   const onClick = params.onClick;
@@ -40,17 +39,11 @@ export default function TodoList(params) {
       const idx = parseInt($li.dataset.idx);
       const id = this.state[idx]._id;
       onClick(id);
-      // const changeData = [...this.state];
-      // changeData[idx].isCompleted = !changeData[idx].isCompleted;
-      // setState(changeData);
     } else if (className === "delBtn") {
       const $input = e.target.closest("input");
       const idx = parseInt($input.dataset.idx);
       const id = this.state[idx]._id;
       onRemove(id);
-      // const changeData = [...this.state];
-      // changeData.splice(idx, 1);
-      // setState(changeData);
     }
   });
 

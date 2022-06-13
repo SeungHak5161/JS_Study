@@ -1,3 +1,3 @@
-import App from "./Components/App.js";
+import App from "./src/Components/App.js";
 
 const app = await App();

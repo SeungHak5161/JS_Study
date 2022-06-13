@@ -1,34 +1,20 @@
 import TodoList from "./TodoList.js";
 import TodoCount from "./TodoCount.js";
 import TodoInput from "./TodoInput.js";
-// import { setData, getData } from "./data.js";
-import checkValidity from "../Utility/checkValidity.js";
+import checkValidity from "../Apis/checkValidity.js";
 
 export default async function App() {
-  // const localData = window.localStorage;
-  // this.state = getData({ localData });
-
   const username = "test123";
 
   async function fetchData() {
     const res = await fetch(`https://todo-api.roto.codes/test123`);
-    // console.log(res);
     return await res.json();
   }
 
   const data = await fetchData();
-  // this.initState = async () => {
-  //   this.state = await fetchData();
-  // };
-  // // console.log(data);
-  // this.state = [
-  //   { content: "추가", isCompleted: false, _id: "62a58952ccbcff0556e9f5d5" },
-  // ];
-  // this.state = [];
 
   // this.setState = (nextData) => {
   //   // checkValidity(nextData);
-  //   // setData({ localData, nextData });
   //   this.state = nextData;
 
   //   todoList.setState(this.state);
@@ -50,12 +36,10 @@ export default async function App() {
     });
     const removedAllData = await fetchData();
     todoList.setState(removedAllData);
-    // console.log("removeAll event");
   });
 
   const todoList = new TodoList({
     $target: $todoList,
-    // setState: this.setState,
     removeEvent: RemoveAll,
     initialState: data,
 
@@ -77,7 +61,6 @@ export default async function App() {
   });
   const todoInput = new TodoInput({
     $target: $addTodo,
-    // setState: this.setState,
     initialState: data,
     onAdd: async function (inputData) {
       await fetch(`https://todo-api.roto.codes/test123`, {

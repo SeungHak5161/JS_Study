@@ -2,6 +2,10 @@ export default function TodoCount(params) {
   const $target = params.$target;
   const initialState = params.initialState;
 
+  this.setState = function (nextData) {
+    this.state = nextData;
+    this.render();
+  };
   this.state = initialState;
   this.render = function () {
     $target.innerHTML = `<div>${
@@ -9,8 +13,4 @@ export default function TodoCount(params) {
     }/${this.state.length}</div>`;
   };
   this.render();
-  this.setState = function (nextData) {
-    this.state = nextData;
-    this.render();
-  };
 }

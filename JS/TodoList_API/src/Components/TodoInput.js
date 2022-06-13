@@ -1,6 +1,5 @@
 export default function TodoInput(params) {
   const $target = params.$target;
-  // const setState = params.setState;
   const initialState = params.initialState;
   const onAdd = params.onAdd;
 
@@ -19,7 +18,6 @@ export default function TodoInput(params) {
     this.state = nextData;
   };
 
-  // 엔터를 사용해서 이벤트를 발생시키려면, input태그를 form태그로 감싸고 "submit" 이벤트를 사용해야 함
   document.getElementById("formElm").addEventListener("submit", (e) => {
     e.preventDefault();
     const $input = document.getElementById("inputElm");
@@ -27,12 +25,6 @@ export default function TodoInput(params) {
 
     if (inputText.trim().length > 0) {
       const inputData = inputText;
-      // {
-      //   content: `${inputText}`,
-      //   isCompleted: false,
-      // };
-
-      // setState([...this.state, inputData]);
       onAdd(inputData);
 
       $input.value = "";
