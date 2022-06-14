@@ -1,13 +1,3 @@
-export async function fetchData(params) {
-  const option = params.option;
-  const username = params.username;
-  const id = params.id;
-  const method = params.method;
-  const inputData = params.inputData;
-  const res = await fetch(`https://todo-api.roto.codes/${username}`);
-  return await res.json();
-}
-
 export async function fetchAPI(params) {
   const option = params.option;
   const username = params.username;
@@ -52,5 +42,9 @@ export async function fetchAPI(params) {
         });
       });
       break;
+
+    case "GET_USER":
+      const userRes = await fetch(`https://todo-api.roto.codes/users`);
+      return userRes.json();
   }
 }

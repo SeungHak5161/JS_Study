@@ -1,3 +1,15 @@
+/* todo-app */
+#todo-app {
+  position: relative;
+  right: -30vw;
+  width: 70vw;
+}
+
+/* TodoList */
+#todo-list {
+  position: relative;
+}
+
 #todo-list .todoUl {
   list-style: none;
 }
@@ -9,11 +21,11 @@
 
 #todo-list .todoItem .delBtn {
   position: absolute;
-  right: 10px;
+  right: 20px;
 }
 
+/* TodoInput */
 #add-todo {
-  display: flex;
   position: absolute;
   margin: 10px 10px;
 }
@@ -22,14 +34,48 @@
   margin-left: 5px;
 }
 
+/* TodoCount */
 #todo-count {
   position: absolute;
-  right: 100px;
+  right: 110px;
   margin-top: 10px;
 }
 
+/* removeAll btn */
 #remove-all {
   position: absolute;
-  right: 10px;
+  right: 20px;
   margin-top: 10px;
+}
+
+/* user-app */
+#user-app {
+  position: absolute;
+  top: 0;
+  width: 20vw;
+  border: 1px solid #efefef;
+}
+
+/* UserList */
+#user-list .userUl {
+  list-style: none;
+}
+
+#user-list .userItem {
+  border-bottom: 1px solid #efefef;
+  padding: 10px 10px 10px;
+}
+
+#userNow {
+  border-bottom: 1px solid #efefef;
+  padding: 10px 10px 10px;
+  background-color: lightpink;
+}
+
+.listName {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: #efefef;
 }
