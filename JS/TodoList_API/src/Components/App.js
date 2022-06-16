@@ -108,7 +108,6 @@ export default function App() {
     username: this.username,
     onClick: (username) => {
       this.setUserName(username);
-      // window.scrollTo({ top: 0, behavior: "smooth" });
       this.setLoadingState();
     },
   });
