@@ -1,3 +1,17 @@
+/* App */
+#App {
+  position: absolute;
+}
+
+/* ListName */
+.listName {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: #efefef;
+}
+
 /* todo-app */
 #todo-app {
   position: relative;
@@ -10,17 +24,23 @@
   position: relative;
 }
 
-#todo-list .todoUl {
+#todo-list-div {
+  height: 80vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#todo-list .todo-ul {
   list-style: none;
 }
 
-#todo-list .todoItem {
+#todo-list .todo-item {
   border-bottom: 1px solid #efefef;
   padding: 10px 10px 10px;
 }
 
-#todo-list .todoItem .delBtn {
-  position: absolute;
+#todo-list .todo-item .del-btn {
+  float: right;
   right: 20px;
 }
 
@@ -30,7 +50,7 @@
   margin: 10px 10px;
 }
 
-#add-todo #submitElm {
+#add-todo #submit-btn {
   margin-left: 5px;
 }
 
@@ -57,25 +77,41 @@
 }
 
 /* UserList */
-#user-list .userUl {
+#user-list-div {
+  height: 80vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#user-list .user-ul {
   list-style: none;
 }
 
-#user-list .userItem {
+#user-list .user-item {
   border-bottom: 1px solid #efefef;
   padding: 10px 10px 10px;
 }
 
-#userNow {
+#user-now {
   border-bottom: 1px solid #efefef;
   padding: 10px 10px 10px;
   background-color: lightpink;
 }
 
-.listName {
-  font-size: 30px;
+#loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.2;
+}
+
+#loading #loading-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: yellow;
+  font-size: 50px;
   font-weight: bold;
   text-align: center;
-  padding: 10px;
-  background-color: #efefef;
+  top: 50%;
 }

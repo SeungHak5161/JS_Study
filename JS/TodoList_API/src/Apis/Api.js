@@ -8,6 +8,12 @@ export async function fetchAPI(params) {
       const res = await fetch(`https://todo-api.roto.codes/${username}`);
       return res.json();
 
+    case "DELAY_GET":
+      const delayRes = await fetch(
+        `https://todo-api.roto.codes/${username}?delay=1000`
+      );
+      return delayRes.json();
+
     case "ADD":
       await fetch(`https://todo-api.roto.codes/${username}`, {
         method: "POST",

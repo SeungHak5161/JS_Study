@@ -6,18 +6,20 @@ export default function UserList(params) {
 
   this.render = function () {
     $target.innerHTML = `<div class="listName">User List</div>
-      <ul id="userUl">
-        <li id="userNow">${this.username} ←</li>
-        ${this.state
-          .map(
-            (e, index) =>
-              `<li class="userItem" data-idx="${index}">
-                ${e}
-              </li>`
-          )
-          .join("")}
-          </ul>
-          `;
+      <div id="user-now">${this.username} ←</div>
+      <div id="user-list-div">
+        <ul id="user-ul">
+          ${this.state
+            .map(
+              (e, index) =>
+                `<li class="user-item" data-idx="${index}">
+                  ${e}
+                </li>`
+            )
+            .join("")}
+        </ul>
+      </div>
+    `;
   };
   this.render();
 
@@ -32,7 +34,7 @@ export default function UserList(params) {
 
   $target.addEventListener("click", (e) => {
     const className = e.target.className;
-    if (className === "userItem") {
+    if (className === "user-item") {
       const $li = e.target.closest("li");
       const idx = parseInt($li.dataset.idx);
       const username = this.state[idx];

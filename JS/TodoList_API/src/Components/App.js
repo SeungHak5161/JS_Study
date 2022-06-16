@@ -2,6 +2,7 @@ import TodoList from "./TodoList.js";
 import TodoCount from "./TodoCount.js";
 import TodoInput from "./TodoInput.js";
 import UserList from "./UserList.js";
+import Loading from "./Loading.js";
 // import checkValidity from "../Apis/checkValidity.js";
 import { fetchAPI } from "../Apis/Api.js";
 
@@ -11,13 +12,21 @@ export default function App() {
   this.UserData = [];
   this.setUserName = (nextName) => {
     this.username = nextName;
-    this.setState();
+    const load = true;
+    this.setState(load);
   };
-  this.setState = async () => {
+  this.setState = async (load) => {
     const updatedData = await fetchAPI({
       option: "GET",
       username: this.username,
     });
+    if (load) {
+      const updatedData = await fetchAPI({
+        option: "DELAY_GET",
+        username: this.username,
+      });
+      loading.setState();
+    }
     this.state = updatedData;
     todoList.setState(this.state);
     todoCount.setState(this.state);
@@ -28,6 +37,9 @@ export default function App() {
     const userData = await fetchAPI({ option: "GET_USER" });
     userList.setUserData(userData);
   };
+  this.setLoadingState = () => {
+    loading.setState();
+  };
   this.setState();
   this.getUserData();
 
@@ -35,6 +47,7 @@ export default function App() {
   const $addTodo = document.getElementById("add-todo");
   const $todoCount = document.getElementById("todo-count");
   const $userList = document.getElementById("user-list");
+  const $Loading = document.getElementById("loading-div");
 
   const RemoveAll = new CustomEvent("removeAll");
 
@@ -95,7 +108,11 @@ export default function App() {
     username: this.username,
     onClick: (username) => {
       this.setUserName(username);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // window.scrollTo({ top: 0, behavior: "smooth" });
+      this.setLoadingState();
     },
+  });
+  const loading = new Loading({
+    $target: $Loading,
   });
 }

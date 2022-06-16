@@ -5,9 +5,9 @@ export default function TodoInput(params) {
 
   this.render = function () {
     $target.innerHTML = `
-      <form id="formElm">
-        <input type="text" id="inputElm" placeholder="새 일정 추가"></input>
-        <input type="submit" id="submitElm" value="추가"></input>
+      <form id="form-elm">
+        <input type="text" id="input-text" placeholder="새 일정 추가"></input>
+        <input type="submit" id="submit-btn" value="추가"></input>
       </form>
       `;
   };
@@ -16,9 +16,9 @@ export default function TodoInput(params) {
   this.setUserName = (newUser) => {
     this.username = newUser;
   };
-  document.getElementById("formElm").addEventListener("submit", (e) => {
+  document.getElementById("form-elm").addEventListener("submit", (e) => {
     e.preventDefault();
-    const $input = document.getElementById("inputElm");
+    const $input = document.getElementById("input-text");
     const inputText = $input.value;
 
     if (inputText.trim().length > 0) {
