@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="list1">
+      <!-- <div class="drag-item" draggable="true" id="a">a</div>
+      <div class="drag-item" draggable="true" id="b">b</div>
+      <div class="drag-item" draggable="true" id="c">c</div> -->
+    </div>
+    <div id="list2">
+      <!-- <div class="drag-item" id="d">d</div>
+      <div class="drag-item" id="e">e</div>
+      <div class="drag-item" id="f">f</div> -->
+    </div>
+  </body>
+  <style>
+    .list {
+      width: 50vw;
+      height: 40vh;
+      border: 1px solid black;
+      margin: 5px;
+    }
+    .drag-item {
+      cursor: move;
+      width: 25px;
+      height: 25px;
+      border: 1px solid black;
+      text-align: center;
+      top: 50%;
+      margin: 10px;
+    }
+    ul {
+      list-style: none;
+    }
+    /* li {
+      width: 10%;
+      height: 10%;
+      border: 1px solid #efefef;
+    } */
+  </style>
+  <script>
+    const data1 = ["a", "b", "c", "d"];
+    const data2 = ["e", "f", "g", "h"];
+    const list1 = document.getElementById("list1");
+    const list2 = document.getElementById("list2");
+    list1.innerHTML = `
+    <ul class="list">
+      ${data1
+        .map(
+          (e, index) =>
+            `<li class="drag-item" draggable="true" data-idx="${index}">${e}</li>`
+        )
+        .join("")}
+    </ul>`;
+    list2.innerHTML = `
+    <ul class="list">
+      ${data2
+        .map(
+          (e, index) =>
+            `<li class="drag-item" draggable="true" data-idx="${index}">${e}</li>`
+        )
+        .join("")}
+    </ul>`;
+
+    function dragstart_handler(e) {
+      console.log("dragStart");
+      // 데이터 전달 객체에 대상 요소의 id를 추가합니다.
+      e.dataTransfer.setData("text/plain", e.target.dataset.idx);
+    }
+    window.addEventListener("DOMContentLoaded", () => {
+      const dragElm = document.getElementsByClassName("drag-item");
+      dragElm[0].addEventListener("dragstart", dragstart_handler);
+      //   dragElm.forEach((e) => {
+      //   e.addEventListener("dragstart", dragstart_handler);
+      // });
+    });
+
+    // e.addEventListener("dragstart", dragstart_handler);
+
+    // document.addEventListener("click", (e) => {
+    //   const $li = e.target.closest("li");
+    //   // $li.addEventListener("dragstart", dragstart_handler);
+    //   const idx = parseInt($li.dataset.idx);
+    //   console.log(idx);
+    // });
+  </script>
+</html>
