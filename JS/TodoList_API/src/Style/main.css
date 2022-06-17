@@ -4,7 +4,7 @@
 }
 
 /* ListName */
-.listName {
+.list-name {
   font-size: 30px;
   font-weight: bold;
   text-align: center;
@@ -20,6 +20,15 @@
 }
 
 /* TodoList */
+
+.sub-list-name {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: #efefef8b;
+}
+
 #todo-list {
   position: relative;
 }
@@ -30,8 +39,20 @@
   overflow-y: scroll;
 }
 
-#todo-list .todo-ul {
+.ul-wrap {
+  display: inline-block;
+  width: 30vw;
+}
+
+#todo-list #todo-ul {
   list-style: none;
+  background-color: #e1b8c6;
+}
+#todo-list #complete-ul {
+  display: inline-block;
+  width: 30vw;
+  list-style: none;
+  background-color: #b0ccda;
 }
 
 #todo-list .todo-item {

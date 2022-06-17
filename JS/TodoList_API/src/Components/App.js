@@ -5,6 +5,7 @@ import UserList from "./UserList.js";
 import Loading from "./Loading.js";
 // import checkValidity from "../Apis/checkValidity.js";
 import { fetchAPI } from "../Apis/Api.js";
+import DragAndDrop from "./Drag&Drop.js";
 
 export default function App() {
   this.username = "SeungHak";
@@ -71,7 +72,6 @@ export default function App() {
         username: username,
         id: id,
       });
-      await fetchAPI({ option: "GET", username: username });
       this.setState();
     },
     onRemove: async (username, id) => {
@@ -80,7 +80,6 @@ export default function App() {
         username: username,
         id: id,
       });
-      await fetchAPI({ option: "GET", username: username });
       this.setState();
     },
   });
@@ -93,7 +92,6 @@ export default function App() {
         username: username,
         inputData: inputData,
       });
-      await fetchAPI({ option: "GET", username: username });
       this.setState();
     },
   });
@@ -114,4 +112,16 @@ export default function App() {
   const loading = new Loading({
     $target: $Loading,
   });
+  // const DragAndDrop=new DragAndDrop({
+  //   initialState: this.state,
+  // onDrag:async (username, id) => {
+  //   await fetchAPI({
+  //     option: "TOGGLE",
+  //     username: username,
+  //     id: id,
+  //   });
+  //   await fetchAPI({ option: "GET", username: username });
+  //   this.setState();
+  // }
+  // })
 }

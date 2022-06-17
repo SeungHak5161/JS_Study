@@ -43,39 +43,67 @@
   </style>
   <script>
     const data1 = ["a", "b", "c", "d"];
-    const data2 = ["e", "f", "g", "h"];
+    const data2 = [];
+    // "e", "f", "g", "h"
+    const dataList = [data1, data2];
     const list1 = document.getElementById("list1");
     const list2 = document.getElementById("list2");
-    list1.innerHTML = `
-    <ul class="list">
-      ${data1
-        .map(
-          (e, index) =>
-            `<li class="drag-item" draggable="true" data-idx="${index}">${e}</li>`
-        )
-        .join("")}
-    </ul>`;
-    list2.innerHTML = `
-    <ul class="list">
-      ${data2
-        .map(
-          (e, index) =>
-            `<li class="drag-item" draggable="true" data-idx="${index}">${e}</li>`
-        )
-        .join("")}
-    </ul>`;
+    this.state = dataList;
+    this.setState = (newState) => {
+      this.state = newState;
+      this.render();
+    };
+    this.render = () => {
+      list1.innerHTML = `
+      <ul class="list" ondragover="dragover_handler(event)" ondrop="drop_handler(event)">
+        ${dataList[0]
+          .map(
+            (e, index) =>
+              `<li class="drag-item" draggable="true" data-idx="${index}">${e}</li>`
+          )
+          .join("")}
+      </ul>`;
+      list2.innerHTML = `
+      <ul class="list" ondragover="dragover_handler(event)" ondrop="drop_handler(event)">
+        ${dataList[1]
+          .map(
+            (e, index) =>
+              `<li class="drag-item" draggable="true" data-idx="${index}">${e}</li>`
+          )
+          .join("")}
+      </ul>`;
+    };
+    this.render();
 
     function dragstart_handler(e) {
       console.log("dragStart");
-      // 데이터 전달 객체에 대상 요소의 id를 추가합니다.
-      e.dataTransfer.setData("text/plain", e.target.dataset.idx);
+      console.log(e.target);
+      e.dataTransfer.setData("idx", e.target.dataset.idx);
+    }
+    function drop_handler(e) {
+      console.log("onDrop");
+      // console.log(e.dataTransfer);
+      console.log(e.dataTransfer.getData("idx"));
+      const idx = e.dataTransfer.getData("idx");
+      e.dataTransfer.clearData("idx");
+      this.state[1].push(this.state[0][idx]);
+      this.state[0].splice(idx, 1);
+      this.setState();
+    }
+    function dragover_handler(e) {
+      e.preventDefault();
+      console.log("onDragOver");
+      e.dataTransfer.dropEffect = "move";
     }
     window.addEventListener("DOMContentLoaded", () => {
+      const list = document.getElementsByClassName("list");
       const dragElm = document.getElementsByClassName("drag-item");
-      dragElm[0].addEventListener("dragstart", dragstart_handler);
-      //   dragElm.forEach((e) => {
-      //   e.addEventListener("dragstart", dragstart_handler);
-      // });
+      // for (let i = 0; i < dragElm.length; i++) {
+      //   dragElm[i].addEventListener("dragstart", dragstart_handler);
+      // }
+      for (let i = 0; i < list.length; i++) {
+        list[i].addEventListener("dragstart", dragstart_handler);
+      }
     });
 
     // e.addEventListener("dragstart", dragstart_handler);

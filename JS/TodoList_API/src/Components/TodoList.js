@@ -13,20 +13,39 @@ export default function TodoList(params) {
 
   this.render = function () {
     $target.innerHTML = `
-    <div class="listName">Todo List</div>
-      <div id="todo-list-div">
+    <div class="list-name">Todo List</div>
+    <div id="todo-list-div">
+      <div class="ul-wrap">
+        <div class="sub-list-name">todo</div>
         <ul id="todo-ul">
-          ${this.state
-            .map(
-              ({ content, isCompleted }, index) =>
-                `<li class="todo-item" data-idx="${index}">
-                ${isCompleted ? `<s>${content}</s>` : content}
+        ${this.state
+          .map(({ content, isCompleted }, index) =>
+            isCompleted
+              ? ""
+              : `<li class="todo-item" data-idx="${index}">
+                ${content}
                 <input class="del-btn" data-idx="${index}" type="checkbox">
                 </li>`
+          )
+          .join("")}
+        </ul>
+      </div>
+      <div class="ul-wrap">
+        <div class="sub-list-name">complete</div>
+        <ul id="complete-ul">
+          ${this.state
+            .map(({ content, isCompleted }, index) =>
+              isCompleted
+                ? `<li class="todo-item" data-idx="${index}">
+                ${content}
+                <input class="del-btn" data-idx="${index}" type="checkbox">
+                </li>`
+                : ""
             )
             .join("")}
         </ul>
       </div>
+    </div>
           `;
   };
   this.render();

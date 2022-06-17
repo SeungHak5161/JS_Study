@@ -5,7 +5,7 @@ export default function UserList(params) {
   this.state = params.initialState;
 
   this.render = function () {
-    $target.innerHTML = `<div class="listName">User List</div>
+    $target.innerHTML = `<div class="list-name">User List</div>
       <div id="user-now">${this.username} ←</div>
       <div id="user-list-div">
         <ul id="user-ul">
