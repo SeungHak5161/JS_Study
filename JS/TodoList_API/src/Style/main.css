@@ -14,13 +14,12 @@
 
 /* todo-app */
 #todo-app {
-  position: relative;
-  right: -30vw;
-  width: 70vw;
+  position: absolute;
+  right: -100vw;
+  /* width: 70vw; */
 }
 
 /* TodoList */
-
 .sub-list-name {
   font-size: 20px;
   font-weight: bold;
@@ -42,6 +41,8 @@
 .ul-wrap {
   display: inline-block;
   width: 30vw;
+  margin: 5px 0px;
+  vertical-align: top;
 }
 
 #todo-list #todo-ul {
@@ -56,6 +57,7 @@
 }
 
 #todo-list .todo-item {
+  cursor: move;
   border-bottom: 1px solid #efefef;
   padding: 10px 10px 10px;
 }

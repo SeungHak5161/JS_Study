@@ -30,6 +30,7 @@ export default function App() {
     }
     this.state = updatedData;
     todoList.setState(this.state);
+    dragAndDrop.setState(this.state);
     todoCount.setState(this.state);
     todoInput.setUserName(this.username);
     userList.setUserName(this.username);
@@ -112,16 +113,19 @@ export default function App() {
   const loading = new Loading({
     $target: $Loading,
   });
-  // const DragAndDrop=new DragAndDrop({
-  //   initialState: this.state,
-  // onDrag:async (username, id) => {
-  //   await fetchAPI({
-  //     option: "TOGGLE",
-  //     username: username,
-  //     id: id,
-  //   });
-  //   await fetchAPI({ option: "GET", username: username });
-  //   this.setState();
-  // }
-  // })
+  const dragAndDrop = new DragAndDrop({
+    initialState: this.state,
+    username: this.username,
+    onDrag: async (username, id, isMoved) => {
+      if (isMoved) {
+        await fetchAPI({
+          option: "TOGGLE",
+          username: username,
+          id: id,
+        });
+        await fetchAPI({ option: "GET", username: username });
+        this.setState();
+      }
+    },
+  });
 }

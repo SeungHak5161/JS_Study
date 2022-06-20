@@ -77,7 +77,7 @@
 
     function dragstart_handler(e) {
       console.log("dragStart");
-      console.log(e.target);
+      // console.log(e.target);
       e.dataTransfer.setData("idx", e.target.dataset.idx);
     }
     function drop_handler(e) {
@@ -98,9 +98,7 @@
     window.addEventListener("DOMContentLoaded", () => {
       const list = document.getElementsByClassName("list");
       const dragElm = document.getElementsByClassName("drag-item");
-      // for (let i = 0; i < dragElm.length; i++) {
-      //   dragElm[i].addEventListener("dragstart", dragstart_handler);
-      // }
+      // console.log(list[0]);
       for (let i = 0; i < list.length; i++) {
         list[i].addEventListener("dragstart", dragstart_handler);
       }

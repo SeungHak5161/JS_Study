@@ -22,7 +22,7 @@ export default function TodoList(params) {
           .map(({ content, isCompleted }, index) =>
             isCompleted
               ? ""
-              : `<li class="todo-item" data-idx="${index}">
+              : `<li class="todo-item" draggable="true" data-idx="${index}">
                 ${content}
                 <input class="del-btn" data-idx="${index}" type="checkbox">
                 </li>`
@@ -36,7 +36,7 @@ export default function TodoList(params) {
           ${this.state
             .map(({ content, isCompleted }, index) =>
               isCompleted
-                ? `<li class="todo-item" data-idx="${index}">
+                ? `<li class="todo-item" draggable="true" data-idx="${index}">
                 ${content}
                 <input class="del-btn" data-idx="${index}" type="checkbox">
                 </li>`
