@@ -3,7 +3,7 @@ import TodoCount from "./TodoCount.js";
 import TodoInput from "./TodoInput.js";
 import UserList from "./UserList.js";
 import Loading from "./Loading.js";
-// import checkValidity from "../Apis/checkValidity.js";
+import checkValidity from "../Apis/checkValidity.js";
 import { fetchAPI } from "../Apis/Api.js";
 import DragAndDrop from "./Drag&Drop.js";
 
@@ -16,18 +16,13 @@ export default function App() {
     const load = true;
     this.setState(load);
   };
-  this.setState = async (load) => {
+  this.setState = async () => {
     const updatedData = await fetchAPI({
-      option: "GET",
+      option: "DELAY_GET",
       username: this.username,
     });
-    if (load) {
-      const updatedData = await fetchAPI({
-        option: "DELAY_GET",
-        username: this.username,
-      });
-      loading.setState();
-    }
+    checkValidity(updatedData);
+    loading.setState();
     this.state = updatedData;
     todoList.setState(this.state);
     dragAndDrop.setState(this.state);
@@ -68,6 +63,7 @@ export default function App() {
     initialState: this.state,
     username: this.username,
     onClick: async (username, id) => {
+      this.setLoadingState();
       await fetchAPI({
         option: "TOGGLE",
         username: username,
@@ -76,6 +72,7 @@ export default function App() {
       this.setState();
     },
     onRemove: async (username, id) => {
+      this.setLoadingState();
       await fetchAPI({
         option: "REMOVE",
         username: username,
@@ -88,7 +85,8 @@ export default function App() {
     $target: $addTodo,
     username: this.username,
     onAdd: async (username, inputData) => {
-      fetchAPI({
+      this.setLoadingState();
+      await fetchAPI({
         option: "ADD",
         username: username,
         inputData: inputData,
@@ -106,8 +104,8 @@ export default function App() {
     initialState: this.UserData,
     username: this.username,
     onClick: (username) => {
-      this.setUserName(username);
       this.setLoadingState();
+      this.setUserName(username);
     },
   });
   const loading = new Loading({
@@ -118,6 +116,7 @@ export default function App() {
     username: this.username,
     onDrag: async (username, id, isMoved) => {
       if (isMoved) {
+        this.setLoadingState();
         await fetchAPI({
           option: "TOGGLE",
           username: username,

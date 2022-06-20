@@ -1,6 +1,6 @@
 export default function Loading(params) {
   const $target = params.$target;
-  this.state = false;
+  this.state = true;
 
   this.render = function () {
     this.state

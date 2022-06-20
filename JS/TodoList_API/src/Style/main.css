@@ -16,7 +16,6 @@
 #todo-app {
   position: absolute;
   right: -100vw;
-  /* width: 70vw; */
 }
 
 /* TodoList */
@@ -27,11 +26,9 @@
   padding: 10px;
   background-color: #efefef8b;
 }
-
 #todo-list {
   position: relative;
 }
-
 #todo-list-div {
   height: 80vh;
   overflow-x: hidden;
@@ -45,14 +42,25 @@
   vertical-align: top;
 }
 
+.uls {
+  height: 80vh;
+}
 #todo-list #todo-ul {
   list-style: none;
+  display: inline-block;
+  width: 30vw;
+  background-color: #ffecf2;
+}
+#todo-list #todo-ul .todo-item {
   background-color: #e1b8c6;
 }
 #todo-list #complete-ul {
+  list-style: none;
   display: inline-block;
   width: 30vw;
-  list-style: none;
+  background-color: #e6f7ff;
+}
+#todo-list #complete-ul .todo-item {
   background-color: #b0ccda;
 }
 
@@ -61,7 +69,6 @@
   border-bottom: 1px solid #efefef;
   padding: 10px 10px 10px;
 }
-
 #todo-list .todo-item .del-btn {
   float: right;
   right: 20px;

@@ -17,7 +17,7 @@ export default function TodoList(params) {
     <div id="todo-list-div">
       <div class="ul-wrap">
         <div class="sub-list-name">todo</div>
-        <ul id="todo-ul">
+        <ul class="uls" id="todo-ul">
         ${this.state
           .map(({ content, isCompleted }, index) =>
             isCompleted
@@ -32,7 +32,7 @@ export default function TodoList(params) {
       </div>
       <div class="ul-wrap">
         <div class="sub-list-name">complete</div>
-        <ul id="complete-ul">
+        <ul class="uls" id="complete-ul">
           ${this.state
             .map(({ content, isCompleted }, index) =>
               isCompleted

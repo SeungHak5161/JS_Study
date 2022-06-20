@@ -3,54 +3,82 @@ export async function fetchAPI(params) {
   const username = params.username;
   const id = params.id;
   const inputData = params.inputData;
+
+  const fetching = async ({ username = "", others = "", type = "GET" }) => {
+    const url = "https://todo-api.roto.codes/";
+    try {
+      const res = await fetch(`${url}${username}${others}`, {
+        method: `${type}`,
+      });
+      if (!res.ok) {
+        throw new Error("Response Error");
+      }
+      return res;
+    } catch (error) {
+      alert("API 요청이 실패했습니다.");
+    }
+  };
+
   switch (option) {
     case "GET":
-      const res = await fetch(`https://todo-api.roto.codes/${username}`);
+      const res = await fetching({ username: username });
       return res.json();
 
     case "DELAY_GET":
-      const delayRes = await fetch(
-        `https://todo-api.roto.codes/${username}?delay=1000`
-      );
+      const delayRes = await fetching({
+        username: username,
+        others: "?delay=50",
+      });
       return delayRes.json();
 
     case "ADD":
-      await fetch(`https://todo-api.roto.codes/${username}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: `${inputData}`,
-        }),
-      });
+      try {
+        const res = await fetch(`https://todo-api.roto.codes/${username}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: `${inputData}`,
+          }),
+        });
+        if (!res.ok) {
+          throw new Error("Response Error");
+        }
+      } catch (error) {
+        alert("API 요청이 실패했습니다.(ADD)");
+      }
       break;
 
     case "TOGGLE":
-      await fetch(`https://todo-api.roto.codes/${username}/${id}/toggle`, {
-        method: "PUT",
+      await fetching({
+        username: username,
+        others: `/${id}/toggle`,
+        type: "PUT",
       });
       break;
 
     case "REMOVE":
-      await fetch(`https://todo-api.roto.codes/${username}/${id}`, {
-        method: "DELETE",
+      await fetching({
+        username: username,
+        others: `/${id}`,
+        type: "DELETE",
       });
       break;
 
     case "REMOVE_ALL":
-      const rmRes = await (
-        await fetch(`https://todo-api.roto.codes/${username}`)
-      ).json();
+      const rmRes = await (await fetching({ username: username })).json();
       rmRes.forEach(async (e) => {
-        await fetch(`https://todo-api.roto.codes/${username}/${e._id}`, {
-          method: "DELETE",
+        await fetching({
+          username: username,
+          others: `/${e._id}`,
+          type: "DELETE",
         });
       });
       break;
 
     case "GET_USER":
-      const userRes = await fetch(`https://todo-api.roto.codes/users`);
+      const userRes = await fetching({ others: "users" });
       return userRes.json();
   }
 }

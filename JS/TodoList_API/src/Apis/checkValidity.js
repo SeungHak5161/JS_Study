@@ -4,7 +4,7 @@ export default function checkValidity(data) {
   }
   data.forEach((data) => {
     if (
-      typeof data.text !== "string" ||
+      typeof data.content !== "string" ||
       typeof data.isCompleted !== "boolean"
     ) {
       throw new Error("Invalid Data!!!");
