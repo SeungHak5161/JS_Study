@@ -5,6 +5,7 @@ import { useState } from "react";
 import { fetchAPI } from "./Apis/Api.js";
 import checkValidity from "./Apis/checkValidity.js";
 import TodoInput from "./Components/TodoInput";
+import TodoCount from "./Components/TodoCount";
 
 function App() {
   const data = [
@@ -66,7 +67,9 @@ function App() {
             }}
           />
         </div>
-        <div id="todo-count"></div>
+        <div id="todo-count">
+          <TodoCount initialState={state} />
+        </div>
         <button id="remove-all">Remove All</button>
       </div>
       <div id="user-app">
