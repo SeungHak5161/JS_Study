@@ -22,8 +22,9 @@ function App() {
       isCompleted: false,
     },
   ];
+  const [username, setUsername] = useState("SeungHak");
+
   const [state, setState] = useState(data);
-  // const [username, setUsername] = useState("SeungHak");
 
   // async function setAllState() {
   //   const updatedData = await fetchAPI({
@@ -73,6 +74,19 @@ function App() {
         <button id="remove-all">Remove All</button>
       </div>
       <div id="user-app">
+        <button
+          onClick={async () => {
+            console.log(username);
+            // const data = await fetch(`https://todo-api.roto.codes/${username}`);
+            const data = await fetchAPI({
+              option: "GET",
+              username: username,
+            });
+            console.log(data);
+          }}
+        >
+          fetch
+        </button>
         <div id="user-list"></div>
       </div>
       <div id="loading-div"></div>
