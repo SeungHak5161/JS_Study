@@ -13,6 +13,7 @@ export async function fetchAPI(params) {
       if (!res.ok) {
         throw new Error("Response Error");
       }
+      console.log(res);
       return res;
     } catch (error) {
       alert(`API 요청이 실패했습니다.`);

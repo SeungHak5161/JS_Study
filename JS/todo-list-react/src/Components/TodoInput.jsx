@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function TodoInput(props) {
-  // const state=props.initialState
   const onAdd = props.onAdd;
 
   return (

@@ -1,30 +1,37 @@
 import logo from "./logo.svg";
 import "./Style/main.css";
 import TodoList from "./Components/TodoList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAPI } from "./Apis/Api.js";
 import checkValidity from "./Apis/checkValidity.js";
 import TodoInput from "./Components/TodoInput";
 import TodoCount from "./Components/TodoCount";
 
 function App() {
-  const data = [
-    {
-      content: "1",
-      isCompleted: false,
-    },
-    {
-      content: "2",
-      isCompleted: true,
-    },
-    {
-      content: "3",
-      isCompleted: false,
-    },
-  ];
-  const [state, setState] = useState(data);
-  // const [username, setUsername] = useState("SeungHak");
-
+  // const data = [
+  //   {
+  //     content: "1",
+  //     isCompleted: false,
+  //   },
+  //   {
+  //     content: "2",
+  //     isCompleted: true,
+  //   },
+  //   {
+  //     content: "3",
+  //     isCompleted: false,
+  //   },
+  // ];
+  const [username, setUsername] = useState("SeungHak");
+  const [state, setState] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await fetchAPI({ option: "GET", username: username });
+      checkValidity(data);
+      setState(data);
+    }
+    fetchData();
+  }, []);
   // async function setAllState() {
   //   const updatedData = await fetchAPI({
   //     option: "GET",
@@ -76,6 +83,19 @@ function App() {
         <div id="user-list"></div>
       </div>
       <div id="loading-div"></div>
+      {/* fetch test용 버튼 */}
+      {/* <button
+        onClick={async () => {
+          console.log(username);
+          const data = await fetchAPI({
+            option: "GET",
+            username: username,
+          });
+          console.log(data);
+        }}
+      >
+        fetch
+      </button> */}
     </>
   );
 }
