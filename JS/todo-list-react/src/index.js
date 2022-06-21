@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 // import "./index.css";
-import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
+// import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

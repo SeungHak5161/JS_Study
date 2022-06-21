@@ -4,7 +4,7 @@ import TodoInput from "./TodoInput.js";
 import UserList from "./UserList.js";
 import Loading from "./Loading.js";
 import checkValidity from "../Apis/checkValidity.js";
-import { fetchAPI } from "../Apis/Api.js";
+import { fetchAPI } from "../../../todo-list-react/src/Apis/Api.js";
 import DragAndDrop from "./Drag&Drop.js";
 
 export default function App() {

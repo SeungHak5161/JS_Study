@@ -80,5 +80,9 @@ export async function fetchAPI(params) {
     case "GET_USER":
       const userRes = await fetching({ others: "users" });
       return userRes.json();
+
+    default:
+      console.log("fetch API - default Case");
+      break;
   }
 }

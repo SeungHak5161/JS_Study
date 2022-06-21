@@ -1,3 +1,5 @@
+@import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
+
 /* App */
 #App {
   position: absolute;
@@ -15,7 +17,8 @@
 /* todo-app */
 #todo-app {
   position: absolute;
-  right: -100vw;
+  /* right: -100vw; */
+  right: 0;
 }
 
 /* TodoList */
