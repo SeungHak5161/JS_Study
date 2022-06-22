@@ -6,17 +6,24 @@ import { fetchAPI } from "./Apis/Api.js";
 import checkValidity from "./Apis/checkValidity.js";
 import TodoInput from "./Components/TodoInput";
 import TodoCount from "./Components/TodoCount";
+import UserList from "./Components/UserList";
 
 function App() {
   const [username, setUsername] = useState("SeungHak");
   const [state, setState] = useState([]);
+  const [users, setUsers] = useState([]);
   async function changeState() {
     const data = await fetchAPI({ option: "GET", username: username });
     checkValidity(data);
     setState(data);
   }
+  async function getUsers() {
+    const data = await fetchAPI({ option: "GET_USER" });
+    setUsers(data);
+  }
   useEffect(() => {
     changeState();
+    getUsers();
   }, []);
   useEffect(() => {
     changeState();
@@ -68,29 +75,11 @@ function App() {
         <button id="remove-all">Remove All</button>
       </div>
       <div id="user-app">
-        <div id="user-list"></div>
+        <div id="user-list">
+          <UserList username={username} users={users} />
+        </div>
       </div>
       <div id="loading-div"></div>
-      {/* fetch test용 버튼 */}
-      {/* <button
-        onClick={async () => {
-          console.log(username);
-          const data = await fetchAPI({
-            option: "GET",
-            username: username,
-          });
-          console.log(data);
-        }}
-      >
-        fetch
-      </button> */}
-      <button
-        onClick={() => {
-          setUsername("dochi");
-        }}
-      >
-        changeUser
-      </button>
     </>
   );
 }
