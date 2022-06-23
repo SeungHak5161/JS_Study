@@ -1,32 +1,45 @@
 import logo from "./logo.svg";
 import "./Style/main.css";
 import TodoList from "./Components/TodoList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchAPI } from "./Apis/Api.js";
 import checkValidity from "./Apis/checkValidity.js";
 import TodoInput from "./Components/TodoInput";
 import TodoCount from "./Components/TodoCount";
 import UserList from "./Components/UserList";
+import RemoveAll from "./Components/RemoveAll";
 
 function App() {
   const [username, setUsername] = useState("SeungHak");
   const [state, setState] = useState([]);
   const [users, setUsers] = useState([]);
+  // const changeStateCallback = useCallback(
+  //   async function changeState() {
+  //     const todos = await fetchAPI({ option: "GET", username: username });
+  //     const users = await fetchAPI({ option: "GET_USER" });
+  //     checkValidity(todos);
+  //     setState(todos);
+  //     setUsers(users);
+  //   },
+  //   [username]
+  // );
+
   async function changeState() {
-    const data = await fetchAPI({ option: "GET", username: username });
-    checkValidity(data);
-    setState(data);
+    const todos = await fetchAPI({ option: "GET", username: username });
+    const users = await fetchAPI({ option: "GET_USER" });
+    checkValidity(todos);
+    setState(todos);
+    setUsers(users);
+    console.log("changeState()");
   }
-  async function getUsers() {
-    const data = await fetchAPI({ option: "GET_USER" });
-    setUsers(data);
-  }
+
   useEffect(() => {
     changeState();
-    getUsers();
+    console.log("useEffect");
   }, []);
   useEffect(() => {
     changeState();
+    console.log("useEffect[username]");
   }, [username]);
 
   return (
@@ -42,6 +55,7 @@ function App() {
                 username: username,
                 id: id,
               });
+              console.log("onToggle");
               changeState();
             }}
             onDelete={async (username, id) => {
@@ -50,11 +64,10 @@ function App() {
                 username: username,
                 id: id,
               });
+              console.log("onDelete");
               changeState();
             }}
           />
-        </div>
-        <div id="add-todo">
           <TodoInput
             username={username}
             onAdd={async (username, text) => {
@@ -64,15 +77,24 @@ function App() {
                   username: username,
                   inputData: text,
                 });
+                console.log("onAdd");
                 changeState();
               }
             }}
           />
+          <TodoCount state={state} />
+          <RemoveAll
+            username={username}
+            onClick={async (username) => {
+              await fetchAPI({
+                option: "REMOVE_ALL",
+                username: username,
+              });
+              console.log("onRemoveAll");
+              changeState();
+            }}
+          />
         </div>
-        <div id="todo-count">
-          <TodoCount initialState={state} />
-        </div>
-        <button id="remove-all">Remove All</button>
       </div>
       <div id="user-app">
         <div id="user-list">

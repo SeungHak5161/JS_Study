@@ -1,12 +1,10 @@
 import React from "react";
-import { useState } from "react";
 
 export default function TodoList(props) {
   const state = props.state;
   const onDelete = props.onDelete;
   const onToggle = props.onToggle;
   const username = props.username;
-  // const removeEvent = params.removeEvent;
 
   return (
     <>
