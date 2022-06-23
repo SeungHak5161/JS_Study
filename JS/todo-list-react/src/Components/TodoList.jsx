@@ -26,14 +26,10 @@ export default function TodoList(props) {
                   onClick={(e) => {
                     const className = e.target.className;
                     if (className === "todo-item") {
-                      const $li = e.target.closest("li");
-                      const idx = parseInt($li.dataset.idx);
-                      const id = state[idx]._id;
+                      const id = state[parseInt(e.target.dataset.idx)]._id;
                       onToggle(username, id);
                     } else if (className === "del-btn") {
-                      const $input = e.target.closest("input");
-                      const idx = parseInt($input.dataset.idx);
-                      const id = state[idx]._id;
+                      const id = state[parseInt(e.target.dataset.idx)]._id;
                       onDelete(username, id);
                     }
                   }}
@@ -58,14 +54,10 @@ export default function TodoList(props) {
                   onClick={(e) => {
                     const className = e.target.className;
                     if (className === "todo-item") {
-                      const $li = e.target.closest("li");
-                      const idx = parseInt($li.dataset.idx);
-                      const id = state[idx]._id;
+                      const id = state[parseInt(e.target.dataset.idx)]._id;
                       onToggle(username, id);
                     } else if (className === "del-btn") {
-                      const $input = e.target.closest("input");
-                      const idx = parseInt($input.dataset.idx);
-                      const id = state[idx]._id;
+                      const id = state[parseInt(e.target.dataset.idx)]._id;
                       onDelete(username, id);
                     }
                   }}

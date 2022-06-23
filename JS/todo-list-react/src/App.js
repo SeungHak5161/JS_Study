@@ -76,7 +76,13 @@ function App() {
       </div>
       <div id="user-app">
         <div id="user-list">
-          <UserList username={username} users={users} />
+          <UserList
+            username={username}
+            users={users}
+            onClick={(newUser) => {
+              setUsername(newUser);
+            }}
+          />
         </div>
       </div>
       <div id="loading-div"></div>

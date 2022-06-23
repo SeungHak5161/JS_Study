@@ -3,7 +3,7 @@ import React from "react";
 export default function UserList(props) {
   const username = props.username;
   const users = props.users;
-  // console.log(users);
+  const onClick = props.onClick;
   return (
     <>
       <div className="list-name">User List</div>
@@ -11,7 +11,15 @@ export default function UserList(props) {
       <div id="user-list-div">
         <ul id="user-ul">
           {users.map((user, index) => (
-            <li key={user} className="user-item" data-idx={index}>
+            <li
+              key={user}
+              className="user-item"
+              data-idx={index}
+              onClick={(e) => {
+                const newUser = users[parseInt(e.target.dataset.idx)];
+                onClick(newUser);
+              }}
+            >
               {user}
             </li>
           ))}
