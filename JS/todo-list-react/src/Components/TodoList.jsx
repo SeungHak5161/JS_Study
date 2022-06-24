@@ -2,12 +2,10 @@ import React from "react";
 import { useState } from "react";
 
 export default function TodoList(props) {
-  // const [state, setState] = useState(props.initialState);
-  const state = props.initialState;
+  const state = props.state;
   const onDelete = props.onDelete;
   const onToggle = props.onToggle;
-
-  // const username = props.username;
+  const username = props.username;
   // const removeEvent = params.removeEvent;
 
   return (
@@ -17,25 +15,32 @@ export default function TodoList(props) {
         <div className="ul-wrap">
           <div className="sub-list-name">todo</div>
           <ul className="uls" id="todo-ul">
-            {state.map(({ content, isCompleted }, index) =>
+            {state.map(({ content, isCompleted, _id }, index) =>
               isCompleted ? (
                 ""
               ) : (
                 <li
+                  key={_id}
+                  data-idx={index}
                   className="todo-item"
                   onClick={(e) => {
                     const className = e.target.className;
                     if (className === "todo-item") {
-                      onToggle(index);
+                      const $li = e.target.closest("li");
+                      const idx = parseInt($li.dataset.idx);
+                      const id = state[idx]._id;
+                      onToggle(username, id);
                     } else if (className === "del-btn") {
-                      onDelete(index);
+                      const $input = e.target.closest("input");
+                      const idx = parseInt($input.dataset.idx);
+                      const id = state[idx]._id;
+                      onDelete(username, id);
                     }
                   }}
                   draggable="true"
-                  key={index}
                 >
                   {content}
-                  <input className="del-btn" type="checkbox" />
+                  <input className="del-btn" type="checkbox" data-idx={index} />
                 </li>
               )
             )}
@@ -44,23 +49,30 @@ export default function TodoList(props) {
         <div className="ul-wrap">
           <div className="sub-list-name">complete</div>
           <ul className="uls" id="complete-ul">
-            {state.map(({ content, isCompleted }, index) =>
+            {state.map(({ content, isCompleted, _id }, index) =>
               isCompleted ? (
                 <li
+                  key={_id}
+                  data-idx={index}
                   className="todo-item"
                   onClick={(e) => {
                     const className = e.target.className;
                     if (className === "todo-item") {
-                      onToggle(index);
+                      const $li = e.target.closest("li");
+                      const idx = parseInt($li.dataset.idx);
+                      const id = state[idx]._id;
+                      onToggle(username, id);
                     } else if (className === "del-btn") {
-                      onDelete(index);
+                      const $input = e.target.closest("input");
+                      const idx = parseInt($input.dataset.idx);
+                      const id = state[idx]._id;
+                      onDelete(username, id);
                     }
                   }}
                   draggable="true"
-                  key={index}
                 >
                   {content}
-                  <input className="del-btn" type="checkbox" />
+                  <input className="del-btn" type="checkbox" data-idx={index} />
                 </li>
               ) : (
                 ""

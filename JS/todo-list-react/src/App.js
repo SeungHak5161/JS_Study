@@ -1,69 +1,70 @@
 import logo from "./logo.svg";
 import "./Style/main.css";
 import TodoList from "./Components/TodoList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAPI } from "./Apis/Api.js";
 import checkValidity from "./Apis/checkValidity.js";
 import TodoInput from "./Components/TodoInput";
 import TodoCount from "./Components/TodoCount";
+import UserList from "./Components/UserList";
 
 function App() {
-  const data = [
-    {
-      content: "1",
-      isCompleted: false,
-    },
-    {
-      content: "2",
-      isCompleted: true,
-    },
-    {
-      content: "3",
-      isCompleted: false,
-    },
-  ];
   const [username, setUsername] = useState("SeungHak");
-
-  const [state, setState] = useState(data);
-
-  // async function setAllState() {
-  //   const updatedData = await fetchAPI({
-  //     option: "GET",
-  //     // option: "DELAY_GET",
-  //     username: username,
-  //   });
-  //   console.log(updatedData);
-  //   checkValidity(updatedData);
-  //   setState(updatedData);
-  // }
+  const [state, setState] = useState([]);
+  const [users, setUsers] = useState([]);
+  async function changeState() {
+    const data = await fetchAPI({ option: "GET", username: username });
+    checkValidity(data);
+    setState(data);
+  }
+  async function getUsers() {
+    const data = await fetchAPI({ option: "GET_USER" });
+    setUsers(data);
+  }
+  useEffect(() => {
+    changeState();
+    getUsers();
+  }, []);
+  useEffect(() => {
+    changeState();
+  }, [username]);
 
   return (
     <>
       <div id="todo-app">
         <div id="todo-list">
           <TodoList
-            initialState={state}
-            // username={username}
-            onToggle={(idx) => {
-              const newState = [...state];
-              newState[idx].isCompleted = !newState[idx].isCompleted;
-              setState(newState);
+            state={state}
+            username={username}
+            onToggle={async (username, id) => {
+              await fetchAPI({
+                option: "TOGGLE",
+                username: username,
+                id: id,
+              });
+              changeState();
             }}
-            onDelete={(idx) => {
-              const newState = [...state];
-              newState.splice(idx, 1);
-              setState(newState);
+            onDelete={async (username, id) => {
+              await fetchAPI({
+                option: "REMOVE",
+                username: username,
+                id: id,
+              });
+              changeState();
             }}
           />
         </div>
         <div id="add-todo">
           <TodoInput
-            onAdd={(text) => {
+            username={username}
+            onAdd={async (username, text) => {
               if (text.trim().length > 0) {
-                const newState = [...state];
-                const newTodo = { content: text, isCompleted: false };
-                newState.push(newTodo);
-                setState(newState);
+                await fetchAPI({
+                  option: "ADD",
+                  username: username,
+                  inputData: text,
+                });
+                changeState();
               }
             }}
           />
@@ -74,20 +75,9 @@ function App() {
         <button id="remove-all">Remove All</button>
       </div>
       <div id="user-app">
-        <button
-          onClick={async () => {
-            console.log(username);
-            // const data = await fetch(`https://todo-api.roto.codes/${username}`);
-            const data = await fetchAPI({
-              option: "GET",
-              username: username,
-            });
-            console.log(data);
-          }}
-        >
-          fetch
-        </button>
-        <div id="user-list"></div>
+        <div id="user-list">
+          <UserList username={username} users={users} />
+        </div>
       </div>
       <div id="loading-div"></div>
     </>

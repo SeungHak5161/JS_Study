@@ -6,16 +6,14 @@ export async function fetchAPI(params) {
 
   const fetching = async ({ username = "", others = "", type = "GET" }) => {
     const url = "https://todo-api.roto.codes/";
-    const res = "";
     try {
-      console.log(`${url}${username}${others}`);
-      res = await fetch(`${url}${username}${others}`, {
+      const res = await fetch(`${url}${username}${others}`, {
         method: `${type}`,
       });
-      console.log(res);
       if (!res.ok) {
         throw new Error("Response Error");
       }
+      console.log(res);
       return res;
     } catch (error) {
       alert(`API 요청이 실패했습니다.`);

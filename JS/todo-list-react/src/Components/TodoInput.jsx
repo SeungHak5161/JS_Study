@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function TodoInput(props) {
-  // const state=props.initialState
+  const username = props.username;
   const onAdd = props.onAdd;
 
   return (
@@ -12,7 +12,7 @@ export default function TodoInput(props) {
           e.preventDefault();
           const $input = document.getElementById("input-text");
           const text = $input.value;
-          onAdd(text);
+          onAdd(username, text);
           $input.value = "";
           $input.focus();
         }}
