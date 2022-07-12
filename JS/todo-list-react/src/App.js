@@ -8,28 +8,22 @@ import TodoInput from "./Components/TodoInput";
 import TodoCount from "./Components/TodoCount";
 import UserList from "./Components/UserList";
 import RemoveAll from "./Components/RemoveAll";
+import Loading from "./Components/Loading";
 
 function App() {
   const [username, setUsername] = useState("SeungHak");
   const [state, setState] = useState([]);
   const [users, setUsers] = useState([]);
-  // const changeStateCallback = useCallback(
-  //   async function changeState() {
-  //     const todos = await fetchAPI({ option: "GET", username: username });
-  //     const users = await fetchAPI({ option: "GET_USER" });
-  //     checkValidity(todos);
-  //     setState(todos);
-  //     setUsers(users);
-  //   },
-  //   [username]
-  // );
+  const [isLoading, setIsLoading] = useState(false);
 
   async function changeState() {
+    setIsLoading(true);
     const todos = await fetchAPI({ option: "GET", username: username });
     const users = await fetchAPI({ option: "GET_USER" });
     checkValidity(todos);
     setState(todos);
     setUsers(users);
+    setIsLoading(false);
     console.log("changeState()");
   }
 
@@ -107,7 +101,7 @@ function App() {
           />
         </div>
       </div>
-      <div id="loading-div"></div>
+      <Loading state={isLoading} />
     </>
   );
 }
