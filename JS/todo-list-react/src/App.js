@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./Style/main.css";
 import TodoList from "./Components/TodoList";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAPI } from "./Apis/Api.js";
 import checkValidity from "./Apis/checkValidity.js";
 import TodoInput from "./Components/TodoInput";
@@ -36,9 +35,48 @@ function App() {
     console.log("useEffect[username]");
   }, [username]);
 
+  const onDrag = async (username, id, isMoved) => {
+    if (isMoved) {
+      await fetchAPI({
+        option: "TOGGLE",
+        username: username,
+        id: id,
+      });
+      await fetchAPI({ option: "GET", username: username });
+      changeState();
+    }
+  };
+  const dragstart_handler = (e) => {
+    e.dataTransfer.setData("movedUl", e.target.closest("ul").id);
+    e.dataTransfer.setData("idx", e.target.dataset.idx);
+  };
+  const dragover_handler = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  };
+  const drop_handler = (e) => {
+    const idx = e.dataTransfer.getData("idx");
+    const movedUl = e.dataTransfer.getData("movedUl");
+    try {
+      const originUl = e.target.closest("ul").id;
+      let isMoved = false;
+      if (originUl !== movedUl) {
+        isMoved = true;
+      }
+      onDrag(username, state[idx]._id, isMoved);
+    } catch (error) {
+      alert("드래그&드랍 영역을 벗어났습니다.");
+    }
+  };
+
   return (
     <>
-      <div id="todo-app">
+      <div
+        id="todo-app"
+        onDragStart={dragstart_handler}
+        onDragOver={dragover_handler}
+        onDrop={drop_handler}
+      >
         <div id="todo-list">
           <TodoList
             state={state}
