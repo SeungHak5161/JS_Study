@@ -22,7 +22,7 @@ export default function home() {
         {users.map((e) => (
           <ul key={e.id}>
             {/* url이 문자로 들어갈 경우 인코딩 형식 지키기 위해 사용 */}
-            <Link href={`/user/${encodeURIComponent(e.id)}?name=${e.name}`}>
+            <Link href={`user/${encodeURIComponent(e.id)}?name=${e.name}`}>
               <a>{e.name}</a>
             </Link>
           </ul>
