@@ -11,7 +11,7 @@ export default function home({ jsonData }) {
       </Head>
       <img src="/Images/profile.jpg" height={144} width={144} alt="Your Name" />
       <br />
-      {/* 최적화된 이미지로 출력 */}
+      {/* 최적화된 이미지로 출력  */}
       <Image
         src="/Images/profile.jpg"
         height={144}
