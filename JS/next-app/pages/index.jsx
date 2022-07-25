@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
-import css from "styled-jsx/css";
+// import css from "styled-jsx/css";
 import { data } from "../datas/data.js";
 
 export default function home({ jsonData }) {
@@ -30,6 +30,7 @@ export default function home({ jsonData }) {
           className="profile"
         />
       </div>
+
       <ul>
         <li>
           <Link href="/">
