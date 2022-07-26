@@ -7,7 +7,7 @@ import Alert from "../../components/Alert.js";
 export default function FirstPost() {
   return (
     <>
-      <Layout>
+      <Layout home={true}>
         <Head>
           <title>{siteTitle}</title>
         </Head>
