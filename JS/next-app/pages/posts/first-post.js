@@ -1,18 +1,30 @@
 import Head from "next/head";
 import Link from "next/link";
-import Layout from "../../components/Layout.js";
+import Layout, { siteTitle } from "../../components/Layout.js";
+import utilStyles from "../../styles/utils.module.css";
+import Alert from "../../components/Alert.js";
+
 export default function FirstPost() {
   return (
-    <Layout>
-      <Head>
-        <title>First Post</title>
-      </Head>
-      <h1>First Post</h1>
-      <h2>
-        <Link href="/">
-          <a>Back to home</a>
-        </Link>
-      </h2>
-    </Layout>
+    <>
+      <Layout>
+        <Head>
+          <title>{siteTitle}</title>
+        </Head>
+        <section className={utilStyles.headingMd}>
+          <p>[Introduction]</p>
+          <p>
+            something blabla~{" "}
+            <a href="https://nextjs.org/learn">next.js tutorial</a>
+          </p>
+        </section>
+      </Layout>
+      <Alert type="success">
+        <p>meow===cat</p>
+      </Alert>
+      <Alert type="error">
+        <p>meow===dog</p>
+      </Alert>
+    </>
   );
 }
