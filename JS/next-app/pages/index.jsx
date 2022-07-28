@@ -1,81 +1,59 @@
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
+import Date from "../components/date";
+import Layout from "../components/Layout";
+import utilStyles from "../styles/utils.module.css";
+import { getSortedPostsData } from "../library/post";
 // import css from "styled-jsx/css";
-import { data } from "../datas/data.js";
 
-export default function home({ jsonData }) {
+export default function home({ allPostsData }) {
   return (
     <>
       <Head>
         <title>{"Main"}</title>
       </Head>
 
-      <img
-        src="/Images/profile.jpg"
-        height={144}
-        width={144}
-        alt="Your Name"
-        className="profile"
-      />
-      <br />
-      {/* nextjs의 Image태그, 이미지 최적화 및, viewport에 표시될 때 lazy loading되는 등 기능 제공 
-      기본적으로 제공되는 css로 인해 css가 제대로 먹지 않음, div로 감싸는 등 필요*/}
-      <div className="profile">
-        <Image
-          src="/Images/profile.jpg"
-          height={144}
-          width={144}
-          alt="Your Name"
-          className="profile"
-        />
-      </div>
-
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="about">
-            <a>About us</a>
-          </Link>
-        </li>
-        <li>
-          {jsonData.map((e) => (
-            <ul key={e.id}>
-              {/* // url이 문자로 들어갈 경우 인코딩 형식 지키기 위해 사용  */}
-              <Link href={`user/${encodeURIComponent(e.id)}?name=${e.name}`}>
-                <a className="users">{e.name}</a>
-              </Link>
-            </ul>
-          ))}
-        </li>
-      </ul>
-      <style jsx>{`
-        .users {
-          font-size: 20px;
-        }
-        .profile {
-          transform: rotate(45deg);
-          // opacity: 0.5;
-        }
-      `}</style>
+      <Layout home>
+        <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+          <h2 className={utilStyles.headingLg}>Blog</h2>
+          <ul className={utilStyles.list}>
+            {allPostsData.map(({ id, date, title }) => (
+              <li className={utilStyles.listItem} key={id}>
+                <Link href={`/posts/${id}`}>
+                  <a>{title}</a>
+                </Link>
+                <br />
+                <small className={utilStyles.lightText}>
+                  <Date dateString={date} />
+                </small>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </Layout>
     </>
   );
 }
 
-// getStaticProps : 빌드시 딱 한 번만 호출됨, getServerSideProps : page가 요청받을 때마다 호출됨
 export async function getStaticProps() {
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+  const allPostsData = getSortedPostsData();
   return {
     props: {
-      jsonData: data,
+      allPostsData,
     },
   };
 }
+// getStaticProps : 빌드시 딱 한 번만 호출됨, getServerSideProps : page가 요청받을 때마다 호출됨
+// export async function getStaticProps() {
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+//   return {
+//     props: {
+//       jsonData: data,
+//     },
+//   };
+// }
