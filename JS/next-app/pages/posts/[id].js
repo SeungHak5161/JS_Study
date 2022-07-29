@@ -12,8 +12,8 @@ export async function getStaticPaths() {
     paths,
     // fallback은 paths 페이지가 없을 경우 처리 방법. false일 경우 바로 404를 띄우고,
     // true일 경우 적절하게 처리가 돼있을 경우 fallback 버전의 page를 띄움
-    // fallback: false,
-    fallback: true,
+    fallback: false,
+    // fallback: true,
   };
 }
 
