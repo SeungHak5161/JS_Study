@@ -7,8 +7,9 @@ import { useRouter } from "next/router";
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
+  console.log(paths);
   return {
-    // path:[{params:{id:'ssg-ssr'}}] 형태
+    // path:[{params:{id :'ssg-ssr'}}] 형태
     paths,
     // fallback은 paths 페이지가 없을 경우 처리 방법. false일 경우 바로 404를 띄우고,
     // true일 경우 적절하게 처리가 돼있을 경우 fallback 버전의 page를 띄움

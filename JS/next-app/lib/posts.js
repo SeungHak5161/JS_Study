@@ -5,9 +5,11 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
+// 현재 작업경로/posts
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getAllPostIds() {
+  // 경로의 모든 파일을 읽어옴
   const fileNames = fs.readdirSync(postsDirectory);
 
   // Returns an array that looks like this:
