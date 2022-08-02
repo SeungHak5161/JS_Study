@@ -4,6 +4,7 @@ import Head from "next/head";
 import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -30,6 +31,12 @@ export async function getStaticProps({ params }) {
 export default function Post({ postData }) {
   // props인 postData가 페이지 로딩 전에는 전달되지 않아서 에러 발생하는데 이를 방지하기 위해 isFallback check
   const router = useRouter();
+
+  useEffect(async () => {
+    const res = await fetch("/api/hello");
+    const data = await res.json();
+    alert(data.text);
+  }, []);
   if (router.isFallback) {
     return <div>Loading</div>;
   }
