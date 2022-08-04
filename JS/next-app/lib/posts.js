@@ -35,7 +35,7 @@ export function getAllPostIds() {
 }
 
 export async function getPostData(id) {
-  // path에서 md파일을 읽어옴(확장자 떼고)
+  // path에서 md파일을  읽어옴(확장자 떼고)
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
