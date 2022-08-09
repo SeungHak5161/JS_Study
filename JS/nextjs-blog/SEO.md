@@ -15,3 +15,14 @@
 ## XML Sitemaps
 
 - 구글이 웹사이트를 쉽고 정확하게 탐지 및 크롤링 할 수 있게 해줌
+- js파일에서 getServerSideProps를 이용해 동적으로 생성할 수 도 있음
+
+## Meta robot tags
+
+- `<meta name="robots" content="~">` 형식으로 크롤러의 권한?을 정의함 (ex> noindex, nofollow, all 등)
+- 구글에서 특정한 권한을 정의하기 위한 googlebot, google도 있음
+- Head 영역에 넣어서 사용하고, key 요소를 이용해 한 번만 렌더링 되게 할 수 있음.
+
+## canonical tag
+
+- 웹사이트에서 중복되는(원본과 복제된) 여러 페이지 중 가장 대표성을 가진(원본의) 페이지를 나타냄
